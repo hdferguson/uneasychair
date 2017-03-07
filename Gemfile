@@ -14,7 +14,7 @@ group :development do
 end
 gem 'carrierwave', '~> 0.9'
 gem 'bootstrap-sass', '~> 2.3.2'
-gem 'mini_magick'
+#gem 'mini_magick'
 gem 'fog'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

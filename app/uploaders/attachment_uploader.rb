@@ -1,6 +1,6 @@
 class AttachmentUploader < CarrierWave::Uploader::Base
-include CarrierWave::MiniMagick
-  process resize_to_limit: [400, 400]
+include CarrierWave
+  #process resize_to_limit: [400, 400]
 
   if Rails.env.production?
     storage :fog
@@ -15,7 +15,7 @@ include CarrierWave::MiniMagick
   end
 
   def extension_white_list
-    %w(pdf doc htm html docx)
+    %w(pdf doc htm html docx rtf)
   end
 end
 
