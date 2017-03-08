@@ -6,7 +6,7 @@ class Paper < ApplicationRecord
     with: %r{\.(doc|docx|pdf)\Z}i,
     message: 'must be a URL for DOC, DOCX or PDF image.'
     }
-  #has_many:reviews
+  has_many:reviews
 
 end
 

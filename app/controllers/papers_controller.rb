@@ -19,6 +19,11 @@ class PapersController < ApplicationController
 
   def destroy
    @paper = Paper.find(params[:id])
+   @paper.reviews.each do |review| 
+      if(review.paper == @paper)
+        review.destroy
+      end
+   end
     @paper.destroy
     redirect_to papers_path, notice:  "The paper #{@paper.title} has been deleted."
   end
