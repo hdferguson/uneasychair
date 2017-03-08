@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306010954) do
+ActiveRecord::Schema.define(version: 20170308212845) do
 
   create_table "papers", force: :cascade do |t|
     t.string   "title"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 20170306010954) do
     t.string   "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "score"
+    t.text     "comments"
+    t.integer  "paper_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["paper_id"], name: "index_reviews_on_paper_id"
   end
 
 end
