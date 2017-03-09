@@ -4,7 +4,8 @@
   </div>
 <% end %>
 <br />
-<%= link_to "New Paper", new_paper_path, class: "btn btn-primary" %>
+<h1>Papers</h1>
+
 <br />
 <br />
 <table class="table table-bordered table-striped">
@@ -13,7 +14,9 @@
       <th>Title</th>
       <th>Author</th>
       <th>Download Link</th>
-      <th>&nbsp;</th>
+      <th>Delete Method</th>
+      <th>Review Link</th>
+      
     </tr>
   </thead>
   <tbody>
@@ -27,4 +30,6 @@
       </tr>
     <% end %>
   </tbody>
+  
 </table>
+<%= link_to "New Paper", new_paper_path, class: "btn btn-primary" %>
