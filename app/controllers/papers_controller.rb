@@ -28,6 +28,16 @@ class PapersController < ApplicationController
     redirect_to papers_path, notice:  "The paper #{@paper.title} has been deleted."
   end
   
+  def showReviews
+    @paper = Paper.find(params[:id])
+    @paper.reviews.each do |review| 
+      if(review.paper == @paper)
+        review.show
+      end
+   end
+  end
+
+
   private
   def paper_params
     params.require(:paper).permit(:title, :author, :attachment)
