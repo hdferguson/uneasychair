@@ -7,6 +7,7 @@ class Paper < ApplicationRecord
     message: 'must be a URL for DOC, DOCX or PDF image.'
     }
   has_many:reviews
+  belongs_to :conference
 
 end
 
