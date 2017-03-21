@@ -28,7 +28,7 @@
         <td><%= link_to "Download Paper", paper.attachment_url %></td>
         <td><%= button_to "Delete",  paper, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure that you wish to delete #{paper.title}?"} %></td>
         <td><%= link_to "Review paper", new_review_path %></td>
-        <td><%= link_to 'Show', paper %></td>
+        <td><%= link_to 'Reviews', paper %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,6 +1,18 @@
-<h1> <%= @paper.title %> by <%= @paper.author %></h1>
-
- <% @paper.reviews.each do |review| %>
-      <p><%= review.score %></p>
-      <p><%= review.comments %></p>
-   <% end %>
+<h1> Title: <%= @paper.title %></h1>
+<h1> Author: <%= @paper.author %></h1>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Score</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+ <tbody> 
+  <% @paper.reviews.each do |review| %>
+     <tr>
+       <td><%= review.score %></td>
+       <td><%= review.comments %></td>
+     </tr>
+    <% end %>
+ </tbody>
+</table>
