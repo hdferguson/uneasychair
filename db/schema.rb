@@ -10,14 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321194751) do
+ActiveRecord::Schema.define(version: 20170321203143) do
 
   create_table "conferences", force: :cascade do |t|
     t.string   "name"
-    t.integer  "paper_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["paper_id"], name: "index_conferences_on_paper_id"
   end
 
   create_table "papers", force: :cascade do |t|
@@ -26,6 +24,7 @@ ActiveRecord::Schema.define(version: 20170321194751) do
     t.string   "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.         "conference"
   end
 
   create_table "reviews", force: :cascade do |t|
