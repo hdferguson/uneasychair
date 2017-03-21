@@ -17,7 +17,7 @@ class ConferencesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create conference" do
     assert_difference('Conference.count') do
-      post conferences_url, params: { conference: { name: @conference.name, paper_id: @conference.paper_id } }
+      post conferences_url, params: { conference: { name: @conference.name } }
     end
 
     assert_redirected_to conference_url(Conference.last)
@@ -34,7 +34,7 @@ class ConferencesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update conference" do
-    patch conference_url(@conference), params: { conference: { name: @conference.name, paper_id: @conference.paper_id } }
+    patch conference_url(@conference), params: { conference: { name: @conference.name } }
     assert_redirected_to conference_url(@conference)
   end
 

@@ -10,4 +10,3 @@ class Paper < ApplicationRecord
   belongs_to :conference
 
 end
-

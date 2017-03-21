@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Paper</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,7 +14,6 @@
     <% @conferences.each do |conference| %>
       <tr>
         <td><%= conference.name %></td>
-        <td><%= conference.papers %></td>
         <td><%= link_to 'Show', conference %></td>
         <td><%= link_to 'Edit', edit_conference_path(conference) %></td>
         <td><%= link_to 'Destroy', conference, method: :delete, data: { confirm: 'Are you sure?' } %></td>

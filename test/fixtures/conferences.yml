@@ -2,8 +2,6 @@
 
 one:
   name: MyString
-  paper: one
 
 two:
   name: MyString
-  paper: two
