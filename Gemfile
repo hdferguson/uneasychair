@@ -12,6 +12,9 @@ gem 'rails', '~> 5.0.2'
 group :development do
     gem 'sqlite3'
 end
+
+
+gem 'devise'
 gem 'carrierwave', '~> 0.9'
 gem 'bootstrap-sass', '~> 2.3.2'
 #gem 'mini_magick'

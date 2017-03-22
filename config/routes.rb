@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :accounts
   resources :conferences
   resources :reviews
  resources :papers, only: [:index, :new, :create, :destroy, :show]
