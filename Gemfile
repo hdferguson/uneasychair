@@ -15,6 +15,7 @@ end
 
 
 gem 'devise'
+gem 'simple_form'
 gem 'carrierwave', '~> 0.9'
 gem 'bootstrap-sass', '~> 2.3.2'
 #gem 'mini_magick'
