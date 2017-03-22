@@ -13,6 +13,7 @@
     <tr>
       <th>Title</th>
       <th>Author</th>
+      <th>Conference</th>
       <th>Download Link</th>
       <th>Delete Method</th>
       <th>Review Link</th>
@@ -25,6 +26,7 @@
       <tr>
         <td><%= paper.title %></td>
         <td><%= paper.author %></td>
+        <td><%= paper.conference.name %></td>
         <td><%= link_to "Download Paper", paper.attachment_url %></td>
         <td><%= button_to "Delete",  paper, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure that you wish to delete #{paper.title}?"} %></td>
         <td><%= link_to "Review paper", new_review_path %></td>

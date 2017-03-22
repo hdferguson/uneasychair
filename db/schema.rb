@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321203143) do
+ActiveRecord::Schema.define(version: 5) do
 
   create_table "conferences", force: :cascade do |t|
     t.string   "name"
@@ -22,9 +22,10 @@ ActiveRecord::Schema.define(version: 20170321203143) do
     t.string   "title"
     t.string   "author"
     t.string   "attachment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.         "conference"
+    t.integer  "conference_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["conference_id"], name: "index_papers_on_conference_id"
   end
 
   create_table "reviews", force: :cascade do |t|

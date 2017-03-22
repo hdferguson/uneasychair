@@ -1,24 +1,5 @@
-<% if !@paper.errors.empty? %>
-  <div class="alert alert-error">
-    <ul>
-      <% @paper.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<h1>New Paper</h1>
 
-<div class="well">
-  <%= form_for @paper, html: { multipart: true } do |f| %>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-    <%= f.label :author %>
-    <%= f.text_field :author %>
-    <%= f.label :conference%>
-    <%= f.collection_select :conference, Conference.order(:name),:id, :name, include_blank: false %>
-    <% f.text_field :conference %>
-    <%= f.label :attachment %>
-    <%= f.file_field :attachment %>
-    <%= f.submit "Save", class: "btn btn-primary" %>
-  <% end %>
-</div>
+<%= render 'form', paper: @paper %>
+
+<%= link_to 'Back', papers_path %>
