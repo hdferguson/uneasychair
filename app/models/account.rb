@@ -5,6 +5,6 @@ class Account < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  ACCOUNT_TYPES = ["Author", "Chair", "PC Chair", "PC Member"]
+  ACCOUNT_TYPES = ["Author", "Chair", "Pcchair", "Pcmember"]
   attr_accessor :type
 end
