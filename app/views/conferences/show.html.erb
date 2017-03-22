@@ -3,6 +3,26 @@
 <p id="notice"><%= notice %></p>
 <h1> Conference: <%= @conference.name %></h1>
 
+<table class = "table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Download Link</th>
+            <th>Remove Paper</th>
+        </tr>
+    </thead>
+    <tbody> 
+  <% @conference.papers.each do |paper| %>
+     <tr>
+       <td><%= paper.title %></td>
+       <td><%= paper.author %></td>
+        <td><%= link_to "Download Paper", paper.attachment_url %></td>
+     </tr>
+    <% end %>
+ </tbody>
+</tbody>
+
 
 <%= link_to 'Edit', edit_conference_path(@conference) %> |
 <%= link_to 'Back', conferences_path %>
