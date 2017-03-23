@@ -1,0 +1,22 @@
+<% if @chair.name.nil? or @chair.name == "" %>
+    <h2>Edit Chair's Profile</h2>
+<% else %>
+    <br />
+    <br />
+    <h2>Edit <%= @chair.name %>'s Profile</h2>
+<% end %>
+
+<%= simple_form_for(@chair, as: @chair, url: chair_path(@chair), html: { method: :patch }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name, required: true, autofocus: true %>
+    <%= f.input :email, required: true %>
+   
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Update" %>
+  </div>
+<% end %>
