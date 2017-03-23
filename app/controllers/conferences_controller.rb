@@ -54,6 +54,12 @@ class ConferencesController < ApplicationController
   # DELETE /conferences/1
   # DELETE /conferences/1.json
   def destroy
+    @conference = Conference.find(params[:id])
+   @Conference.papers.each do |paper| 
+      if(paper.conference == @Conference)
+        paper.destroy
+      end
+   end
     @conference.destroy
     respond_to do |format|
       format.html { redirect_to conferences_url, notice: 'Conference was successfully destroyed.' }
