@@ -9,7 +9,7 @@
             <th>Title</th>
             <th>Author</th>
             <th>Download Link</th>
-            
+            <th>Reviews</th>
         </tr>
     </thead>
     <tbody> 
@@ -18,6 +18,8 @@
        <td><%= paper.title %></td>
        <td><%= paper.author %></td>
         <td><%= link_to "Download Paper", paper.attachment_url %></td>
+        <td><%= link_to 'Reviews', paper %></td>
+        
      </tr>
     <% end %>
  </tbody>

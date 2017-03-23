@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tracks
   devise_for :accounts,  :controllers => { :registrations => 'registrations' }
   resources :authors, only: [:edit, :update]
   resources :chairs, only: [:edit, :update]
