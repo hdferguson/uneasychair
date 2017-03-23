@@ -1,9 +1,31 @@
 <li><%= link_to 'Home', papers_path %></li>
-
 <% if account_signed_in? %>
-  <li><%= link_to 'Edit account', edit_account_registration_path %></li>
-  <li><%= link_to 'Sign out', destroy_account_session_path, :method=>'delete' %></li>
+
+    <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          Settings (<%= (current_account.accountable.name.nil? or current_account.accountable.name == "") ? "No Name" : current_account.accountable.name %>) <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+              <% if current_account.accountable_type == "Author" %>
+                <li><%= link_to 'Author Profile', edit_author_path(current_account.accountable_id) %></li>
+              <% else if current_account.accountable_type == "Chair" %>
+                <li><%= link_to 'Chair Profile', edit_chair_path(current_account.accountable_id) %></li>
+              <% else if current_account.accountable_type == "Pcmember" %>
+                <li><%= link_to 'Pcmember Profile', edit_pcmember_path(current_account.accountable_id) %></li>
+              <%  else  %>
+                <li><%= link_to 'Pcchair Profile', edit_pcchair_path(current_account.accountable_id) %></li>
+              <% end %>
+              <% end %>
+              <% end %>
+              <li><%= link_to 'Account Settings', edit_account_registration_path %></li>
+        </ul>
+    </li>
+
+    <li><%= link_to 'Sign out', destroy_account_session_path, :method=>'delete' %></li>
+
 <% else %>
-  <li><%= link_to 'Sign in', new_account_session_path %></li>
-  <li><%= link_to 'Sign up', new_account_registration_path %></li>
+
+    <li><%= link_to 'Sign in', new_account_session_path %></li>
+    <li><%= link_to 'Sign up', new_account_registration_path %></li>
+
 <% end %>
