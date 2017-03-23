@@ -8,7 +8,7 @@ class PcchairsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @pcchair.update(pcchairhair_params)
+      if @pcchair.update(pcchair_params)
         format.html { redirect_to papers_path, notice: "The profile of the pcchair #{@pcchair.name} was successfully updated." }
         format.json { head :no_content }
       else
