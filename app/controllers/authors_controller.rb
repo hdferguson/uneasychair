@@ -1,11 +1,16 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: [:edit, :update]
-
+  def pundit_user
+     current_account
+  end
+  
   def edit
+    authorize @author
   end
 
 
   def update
+    authorize @author
     respond_to do |format|
       if @author.update(author_params)
         format.html { redirect_to papers_path, notice: "The profile of the author #{@author.name} was successfully updated." }

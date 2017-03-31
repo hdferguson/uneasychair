@@ -1,12 +1,18 @@
 class PcchairsController < ApplicationController
   before_action :set_pcchair, only: [:edit, :update]
 
- 
+  def pundit_user
+     current_account
+  end
+  
   def edit
+    authorize @pcchair
   end
 
 
   def update
+    authorize @pcchair
+    
     respond_to do |format|
       if @pcchair.update(pcchair_params)
         format.html { redirect_to papers_path, notice: "The profile of the pcchair #{@pcchair.name} was successfully updated." }

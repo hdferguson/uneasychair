@@ -12,7 +12,7 @@ gem 'rails', '~> 5.0.2'
 group :development do
     gem 'sqlite3'
 end
-
+gem 'pundit'
 gem 'kaminari'
 gem 'bourbon'
 gem 'administrate'

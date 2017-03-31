@@ -1,12 +1,17 @@
 class PcmembersController < ApplicationController
   before_action :set_pcmember, only: [:edit, :update]
 
-  
+  def pundit_user
+     current_account
+  end
+
   def edit
+    authorize @pcmember
   end
 
  
   def update
+    authorize @pcmember
     respond_to do |format|
       if @pcmember.update(pcmember_params)
         format.html { redirect_to papers_path, notice: "The profile of the pcmember #{@pcmember.name} was successfully updated." }

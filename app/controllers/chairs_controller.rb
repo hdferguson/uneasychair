@@ -1,12 +1,17 @@
 class ChairsController < ApplicationController
   before_action :set_chair, only: [:edit, :update]
 
- 
+  def pundit_user
+     current_account
+  end
+  
   def edit
+    authorize @chair
   end
 
   
   def update
+    authorize @chair
     respond_to do |format|
       if @chair.update(chair_params)
         format.html { redirect_to papers_path, notice: "The profile of the chair #{@chair.name} was successfully updated." }
