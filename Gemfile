@@ -13,7 +13,9 @@ group :development do
     gem 'sqlite3'
 end
 
-
+gem 'kaminari'
+gem 'bourbon'
+gem 'administrate'
 gem 'devise'
 gem 'simple_form'
 gem 'carrierwave', '~> 0.9'

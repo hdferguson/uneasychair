@@ -1,4 +1,19 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :accounts
+    resources :authors
+    resources :chairs
+    resources :conferences
+    resources :papers
+    resources :pcchairs
+    resources :pcmembers
+    resources :reviews
+    resources :tracks
+    resources :super_accounts
+
+    root to: "accounts#index"
+  end
+
   resources :tracks
   devise_for :accounts,  :controllers => { :registrations => 'registrations' }
   resources :authors, only: [:edit, :update]

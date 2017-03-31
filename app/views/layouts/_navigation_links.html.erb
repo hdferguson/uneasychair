@@ -1,6 +1,9 @@
 <li><%= link_to 'Home', papers_path %></li>
 <% if account_signed_in? %>
-
+  <% if current_account.accountable_type == "SuperAccount" %>
+        <li><%= link_to 'Admin Dashboard', admin_root_path %></li>                  
+    <% else %>
+    <% if current_account.accountable_type != "SuperAccount" %>
     <li role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           Settings (<%= (current_account.accountable.name.nil? or current_account.accountable.name == "") ? "No Name" : current_account.accountable.name %>) <span class="caret"></span>
@@ -17,10 +20,12 @@
               <% end %>
               <% end %>
               <% end %>
+              
               <li><%= link_to 'Account Settings', edit_account_registration_path %></li>
         </ul>
     </li>
-
+ <% end %>
+  <% end %>
     <li><%= link_to 'Sign out', destroy_account_session_path, :method=>'delete' %></li>
 
 <% else %>
@@ -29,3 +34,9 @@
     <li><%= link_to 'Sign up', new_account_registration_path %></li>
 
 <% end %>
+
+
+
+
+
+
