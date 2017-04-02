@@ -1,8 +1,14 @@
 class TracksController < ApplicationController
   before_action :set_track, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_account!
+  @roles = ["Author", "PC Chair", "PC Member", "Chair"]
 
   # GET /tracks
   # GET /tracks.json
+  def pundit_user
+    current_account
+  end
+  
   def index
     @tracks = Track.all
   end
@@ -69,6 +75,6 @@ class TracksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def track_params
-      params.require(:track).permit(:role, :conference, :account)
+      params.require(:track).permit(:role, :conference_id, :account_id)
     end
 end

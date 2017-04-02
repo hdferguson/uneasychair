@@ -1,13 +1,36 @@
-<%= simple_form_for(@track) do |f| %>
-  <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :role %>
-    <%= f.input :conference %>
-    <%= f.input :account %>
+<%= form_for(track) do |f| %>
+  <% if track.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(track.errors.count, "error") %> prohibited this track from being saved:</h2>
+
+      <ul>
+      <% track.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :role %>
+    <%= f.select :role,  ["Author", "PC Chair", "PC Member", "Chair"] %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+ 
+  <div class="field">
+    <%= f.label :conference_id %>
+    <%= f.collection_select :conference_id, Conference.all, :id, :name %>
+    <% f.text_field :conference_id %>
+  </div>
+  
+   <div class="field">
+    <%= f.label :author_id %>
+    <% author_id = pundit_user %>
+  </div>
+ 
+
+  <div class="actions">
+    <%= f.submit %>
   </div>
 <% end %>
