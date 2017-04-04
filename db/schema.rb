@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329160154) do
+ActiveRecord::Schema.define(version: 20170404080526) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,20 +32,6 @@ ActiveRecord::Schema.define(version: 20170329160154) do
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   end
 
-  create_table "authors", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "chairs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "conferences", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -60,20 +46,6 @@ ActiveRecord::Schema.define(version: 20170329160154) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["conference_id"], name: "index_papers_on_conference_id"
-  end
-
-  create_table "pcchairs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "pcmembers", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -94,11 +66,17 @@ ActiveRecord::Schema.define(version: 20170329160154) do
   create_table "tracks", force: :cascade do |t|
     t.string   "role"
     t.integer  "conference_id"
-    t.integer  "account_id"
+    t.integer  "userid"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["account_id"], name: "index_tracks_on_account_id"
     t.index ["conference_id"], name: "index_tracks_on_conference_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

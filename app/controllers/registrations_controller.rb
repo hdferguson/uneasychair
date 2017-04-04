@@ -5,20 +5,8 @@ class RegistrationsController < Devise::RegistrationsController
 
     def create
         build_resource(sign_up_params)
-        if (resource.type=="Author")
-            resource.accountable = Author.new
+        resource.accountable = User.new
         
-        else if (resource.type=="Pcchair")
-            resource.accountable = Pcchair.new
-        
-        else if (resource.type=="Pcmember")
-            resource.accountable = Pcmember.new
-       
-        else  
-            resource.accountable = Chair.new
-        end
-        end
-        end
         resource.save
         yield resource if block_given?
         if resource.persisted?

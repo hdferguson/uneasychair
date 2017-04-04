@@ -31,7 +31,7 @@ class TracksController < ApplicationController
   # POST /tracks.json
   def create
     @track = Track.new(track_params)
-
+    @track.userid = current_account.id
     respond_to do |format|
       if @track.save
         format.html { redirect_to @track, notice: 'Track was successfully created.' }
@@ -75,6 +75,6 @@ class TracksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def track_params
-      params.require(:track).permit(:role, :conference_id, :account_id)
+      params.require(:track).permit(:role, :conference_id, :userid)
     end
 end

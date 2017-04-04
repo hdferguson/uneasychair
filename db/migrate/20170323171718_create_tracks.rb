@@ -3,7 +3,7 @@ class CreateTracks < ActiveRecord::Migration[5.0]
     create_table :tracks do |t|
       t.string :role
       t.references :conference
-      t.references :account
+      t.integer :userid
 
       t.timestamps
     end
