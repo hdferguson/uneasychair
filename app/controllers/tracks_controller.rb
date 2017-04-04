@@ -10,27 +10,33 @@ class TracksController < ApplicationController
   end
   
   def index
+    authorize Track 
+    @tracks = policy_scope(Track)
     @tracks = Track.all
   end
 
   # GET /tracks/1
   # GET /tracks/1.json
   def show
+    authorize @track
   end
 
   # GET /tracks/new
   def new
     @track = Track.new
+    authorize @track
   end
 
   # GET /tracks/1/edit
   def edit
+    authorize @track
   end
 
   # POST /tracks
   # POST /tracks.json
   def create
     @track = Track.new(track_params)
+    authorize @track
     @track.userid = current_account.id
     respond_to do |format|
       if @track.save
@@ -46,6 +52,7 @@ class TracksController < ApplicationController
   # PATCH/PUT /tracks/1
   # PATCH/PUT /tracks/1.json
   def update
+    authorize @track
     respond_to do |format|
       if @track.update(track_params)
         format.html { redirect_to @track, notice: 'Track was successfully updated.' }
@@ -60,6 +67,7 @@ class TracksController < ApplicationController
   # DELETE /tracks/1
   # DELETE /tracks/1.json
   def destroy
+    authorize @track
     @track.destroy
     respond_to do |format|
       format.html { redirect_to tracks_url, notice: 'Track was successfully destroyed.' }
