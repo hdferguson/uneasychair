@@ -4,6 +4,6 @@ SuperAccount.transaction do
 end
 
 Account.transaction do
-  Account.create( :email => 'super@depot.com', :password => 'changeme', :password_confirmation => 'changeme', 
+  Account.create( :email => 'super@group.com', :password => 'changeme', :password_confirmation => 'changeme', 
                   :accountable => SuperAccount.first())
 end
