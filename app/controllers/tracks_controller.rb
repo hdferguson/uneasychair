@@ -21,6 +21,7 @@ class TracksController < ApplicationController
   # GET /tracks/new
   def new
     @track = Track.new
+    @tracks = Track.all
   end
 
   # GET /tracks/1/edit
@@ -30,17 +31,28 @@ class TracksController < ApplicationController
   # POST /tracks
   # POST /tracks.json
   def create
+    @tracks = Track.all
     @track = Track.new(track_params)
     @track.userid = current_account.id
     @track.capproved = false
     @track.uapproved = false
     respond_to do |format|
-      if @track.save
+      @state=true
+        @tracks.each do |track| 
+        if(track.conference == @track.conference && track.userid == @track.userid && track != @track)
+          @track.destroy
+          @state =false
+          format.html { redirect_to tracks_path, notice: 'Track not created. Only one track per user per conference.' }
+          format.json { render :show, status: :created, location: @track }
+          break
+        end
+      if @track.save && @state
         format.html { redirect_to @track, notice: 'Track was successfully created.' }
         format.json { render :show, status: :created, location: @track }
       else
         format.html { render :new }
         format.json { render json: @track.errors, status: :unprocessable_entity }
+      end
       end
     end
   end

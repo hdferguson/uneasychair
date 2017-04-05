@@ -15,11 +15,13 @@ class ConferencesController < ApplicationController
 
   # GET /conferences/new
   def new
+    authenticate_account!
     @conference = Conference.new
   end
 
   # GET /conferences/1/edit
   def edit
+    authenticate_account!
   end
 
   # POST /conferences

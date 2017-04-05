@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_account!
 
   # GET /reviews
   # GET /reviews.json
@@ -10,15 +11,18 @@ class ReviewsController < ApplicationController
   # GET /reviews/1
   # GET /reviews/1.json
   def show
+    authenticate_account!
   end
 
   # GET /reviews/new
   def new
+    authenticate_account!
     @review = Review.new
   end
 
   # GET /reviews/1/edit
   def edit
+    authenticate_account!
   end
 
   # POST /reviews

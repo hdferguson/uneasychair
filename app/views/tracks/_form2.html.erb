@@ -1,0 +1,39 @@
+  <% if track.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(track.errors.count, "error") %> prohibited this track from being saved:</h2>
+
+      <ul>
+      <% track.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :role %>
+    <% if @track.role == "Author" %>
+         <%= f.select :role,  ["Author"] %>
+         <%= "Authors con not change roles."%>
+    <% end %>
+    <% if @track.role != "Author" %>
+        <%= f.select :role,  ["PC Chair", "PC Member", "Chair"] %>
+    <% end %>
+  </div>
+
+ 
+  <div class="field">
+    <%= f.label :conference_id %>
+    <%= @track.conference %>
+  </div>
+  
+   <div class="field">
+    <%= f.label :userid %>
+    <%= @track.userid %>
+  </div>
+ 
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

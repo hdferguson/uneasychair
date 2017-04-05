@@ -1,6 +1,11 @@
 <h1>Editing Track</h1>
-
-<%= render 'form', track: @track %>
-
-<%= link_to 'Show', @track %> |
-<%= link_to 'Back', tracks_path %>
+<% @state=true %>
+<% if @track.userid == current_account.id %>
+    <%= render 'form2', track: @track %>
+    <% @state=false %>
+    <%= link_to 'Show', @track %> |
+    <%= link_to 'Back', tracks_path %>
+<% end %>
+<% if(@state) %>
+    <h3>Silly hacker this is not for you.</h3>
+<% end %>

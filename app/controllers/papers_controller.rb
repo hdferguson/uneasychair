@@ -1,4 +1,5 @@
 class PapersController < ApplicationController
+  before_action :authenticate_account!
   def index
     @papers = Paper.all
   end

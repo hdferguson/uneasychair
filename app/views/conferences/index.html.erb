@@ -19,10 +19,12 @@
     <% @conferences.each do |conference| %>
       <tr>
         <% @state =false %>
+        <% if current_account !=nil%>
         <% conference.tracks.each do |track| %>
           <% if(track.userid == current_account.id && track.role == "Chair") %>
             <% @state = true %>
           <% end %>
+        <% end %>
         <% end %>
         <td><%= conference.name %></td>
         <td><%= link_to 'Show', conference %></td>
