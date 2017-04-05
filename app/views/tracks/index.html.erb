@@ -6,23 +6,26 @@
 <table>
   <thead>
     <tr>
-      <th>Role</th>
-      <th>Conference</th>
-      <th>Account</th>
+      <th>Role </th>
+      <th>Conference </th>
+      <th>Account </th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @tracks.each do |track| %>
+      <% @state = false %>
+      <% if(track.userid == current_account.id) %>
       <tr>
         <td><%= track.role %></td>
-        <td><%= track.conference %></td>
+        <td><%= track.conference.name %></td>
         <td><%= track.userid %></td>
         <td><%= link_to 'Show', track %></td>
         <td><%= link_to 'Edit', edit_track_path(track) %></td>
         <td><%= link_to 'Destroy', track, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>

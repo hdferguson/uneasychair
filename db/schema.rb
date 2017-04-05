@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170404080526) do
 
   create_table "conferences", force: :cascade do |t|
     t.string   "name"
+    t.boolean  "approved"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -43,6 +44,8 @@ ActiveRecord::Schema.define(version: 20170404080526) do
     t.string   "author"
     t.string   "attachment"
     t.integer  "conference_id"
+    t.integer  "authorid"
+    t.boolean  "accepted"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["conference_id"], name: "index_papers_on_conference_id"
@@ -67,6 +70,8 @@ ActiveRecord::Schema.define(version: 20170404080526) do
     t.string   "role"
     t.integer  "conference_id"
     t.integer  "userid"
+    t.boolean  "capproved"
+    t.boolean  "uapproved"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["conference_id"], name: "index_tracks_on_conference_id"

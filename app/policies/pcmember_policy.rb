@@ -1,17 +1,17 @@
-class UserPolicy
+class PcmemberPolicy
   attr_reader :current_account, :model
 
   def initialize(current_account, model)
     @current_account = current_account
-    @User = model
+    @pcmember = model
   end
 
   def edit?
-    @current_account == @User.account
+    @current_account == @pcmember.account
   end
 
   def update?
-    @current_account == @User.account
+    @current_account == @pcmember.account
   end
 
 end

@@ -18,10 +18,18 @@
   <tbody>
     <% @conferences.each do |conference| %>
       <tr>
+        <% @state =false %>
+        <% conference.tracks.each do |track| %>
+          <% if(track.userid == current_account.id && track.role == "Chair") %>
+            <% @state = true %>
+          <% end %>
+        <% end %>
         <td><%= conference.name %></td>
         <td><%= link_to 'Show', conference %></td>
-        <td><%= link_to 'Edit', edit_conference_path(conference) %></td>
-        <td><%= link_to 'Destroy', conference, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if(@state) %>
+          <td><%= link_to 'Edit', edit_conference_path(conference) %></td>
+          <td><%= link_to 'Destroy', conference, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
