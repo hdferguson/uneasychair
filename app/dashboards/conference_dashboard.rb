@@ -12,6 +12,8 @@ class ConferenceDashboard < Administrate::BaseDashboard
     tracks: Field::HasMany,
     id: Field::Number,
     name: Field::String,
+    chairid: Field::Number,
+    approved: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -35,6 +37,8 @@ class ConferenceDashboard < Administrate::BaseDashboard
     :tracks,
     :id,
     :name,
+    :chairid,
+    :approved,
     :created_at,
     :updated_at,
   ].freeze
@@ -46,6 +50,8 @@ class ConferenceDashboard < Administrate::BaseDashboard
     :papers,
     :tracks,
     :name,
+    :chairid,
+    :approved,
   ].freeze
 
   # Overwrite this method to customize how conferences are displayed

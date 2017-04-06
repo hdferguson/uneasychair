@@ -12,6 +12,7 @@ class ReviewDashboard < Administrate::BaseDashboard
     id: Field::Number,
     score: Field::Number,
     comments: Field::Text,
+    memberid: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -35,6 +36,7 @@ class ReviewDashboard < Administrate::BaseDashboard
     :id,
     :score,
     :comments,
+    :memberid,
     :created_at,
     :updated_at,
   ].freeze
@@ -46,6 +48,7 @@ class ReviewDashboard < Administrate::BaseDashboard
     :paper,
     :score,
     :comments,
+    :memberid,
   ].freeze
 
   # Overwrite this method to customize how reviews are displayed

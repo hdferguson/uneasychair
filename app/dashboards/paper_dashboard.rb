@@ -14,6 +14,8 @@ class PaperDashboard < Administrate::BaseDashboard
     title: Field::String,
     author: Field::String,
     attachment: Field::String,
+    authorid: Field::Number,
+    accepted: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -39,6 +41,8 @@ class PaperDashboard < Administrate::BaseDashboard
     :title,
     :author,
     :attachment,
+    :authorid,
+    :accepted,
     :created_at,
     :updated_at,
   ].freeze
@@ -52,6 +56,8 @@ class PaperDashboard < Administrate::BaseDashboard
     :title,
     :author,
     :attachment,
+    :authorid,
+    :accepted,
   ].freeze
 
   # Overwrite this method to customize how papers are displayed
