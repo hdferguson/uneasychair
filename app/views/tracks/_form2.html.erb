@@ -1,3 +1,4 @@
+<%= form_for(track) do |f| %>
   <% if track.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(track.errors.count, "error") %> prohibited this track from being saved:</h2>
@@ -11,10 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :role %>
+     <%= f.label :role %>
     <% if @track.role == "Author" %>
          <%= f.select :role,  ["Author"] %>
-         <%= "Authors con not change roles."%>
+         <%= " Authors can not change roles."%>
     <% end %>
     <% if @track.role != "Author" %>
         <%= f.select :role,  ["PC Chair", "PC Member", "Chair"] %>
@@ -23,8 +24,8 @@
 
  
   <div class="field">
-    <%= f.label :conference_id %>
-    <%= @track.conference %>
+     <%= f.label :conference_id %>
+    <%= @track.conference.name %>
   </div>
   
    <div class="field">

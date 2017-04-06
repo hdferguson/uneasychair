@@ -1,0 +1,41 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+  <%= flash[:notice] %>
+  </div>
+<% end %>
+<br />
+<br />
+<h1>Papers</h1>
+
+
+<br />
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Conference</th>
+      <th>Download Link</th>
+      <th>Status</th>
+      <th>Delete Paper</th>
+      <th>Reviews</t>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @papers.each do |paper| %>
+      <tr>
+        <% if paper.authorid == current_account.id %>
+            <td><%= paper.title %></td>
+            <td><%= paper.author %></td>
+            <td><%= link_to paper.conference.name, paper.conference %></td>
+            <td><%= link_to "Download Paper", paper.attachment_url %></td>
+            <td><%= paper.accepted %></td>
+            <td><%= button_to "Delete",  paper, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure that you wish to delete #{paper.title}?"} %></td>
+            <td><%= link_to 'Reviews', paper %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  
+</table>

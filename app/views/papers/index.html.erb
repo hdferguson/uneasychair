@@ -16,7 +16,8 @@
       <th>Author</th>
       <th>Conference</th>
       <th>Download Link</th>
-      <th>Delete Method</th>
+      <th>Status</th>
+      <th>Manage Paper</th>
       <th>Review Link</th>
       <th>Reviews</th>
       
@@ -29,7 +30,13 @@
         <td><%= paper.author %></td>
         <td><%= link_to paper.conference.name, paper.conference %></td>
         <td><%= link_to "Download Paper", paper.attachment_url %></td>
+        <td><%= paper.accepted %></td>
+        <% if paper.authorid == current_account.id %>
         <td><%= button_to "Delete",  paper, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure that you wish to delete #{paper.title}?"} %></td>
+        <% end %>
+        <% if paper.authorid != current_account.id %>
+        <td><%= button_to "Accept",  accept_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to accept #{paper.title}?"} %></td>
+        <% end %>
         <td><%= link_to "Review paper", new_review_path %></td>
         <td><%= link_to 'Reviews', paper %></td>
       </tr>

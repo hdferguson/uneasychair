@@ -8,17 +8,29 @@ class PapersController < ApplicationController
      @paper = Paper.new
   end
   
+  def accept
+    @paper = Paper.find_by_id(params[:id])
+    respond_to do |format|
+      @paper.update_attribute(:accepted, @paper.accepted = true)
+      format.html { redirect_to @paper.conference }
+    end
+  end
+  
   def show
     @paper = Paper.find(params[:id])
+  end
+  
+  def showid
+    @papers = Paper.all
   end
 
   def create
   @paper = Paper.new(paper_params)
-  @paper.paperid = current_account.id
+  @paper.authorid = current_account.id
   @paper.accepted = false
 
     if @paper.save
-      redirect_to papers_path, notice: "The paper #{@paper.title} has been uploaded."
+      redirect_to @paper.conference, notice: "The paper #{@paper.title} has been uploaded."
     else
       render "new"
     end
@@ -37,6 +49,6 @@ class PapersController < ApplicationController
   
   private
   def paper_params
-    params.require(:paper).permit(:title, :author, :attachment, :conference_id)
+    params.require(:paper).permit(:title, :author, :attachment, :conference_id, :authorid, :accepted)
   end
 end

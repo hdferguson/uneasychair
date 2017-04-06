@@ -12,6 +12,11 @@ class ConferencesController < ApplicationController
   # GET /conferences/1.json
   def show
   end
+  
+  def showid
+    authenticate_account!
+    @conferences = Conference.all
+  end
 
   # GET /conferences/new
   def new
@@ -28,6 +33,7 @@ class ConferencesController < ApplicationController
   # POST /conferences.json
   def create
     @conference = Conference.new(conference_params)
+    @conference.chairid = current_account.id
     @conference.approved = false
     respond_to do |format|
       if @conference.save

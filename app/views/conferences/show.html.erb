@@ -6,10 +6,29 @@
 <table class = "table table-bordered table-striped">
     <thead>
         <tr>
+            <% @state1 =false %>
+            <% @state2 =false %>
+            <% @conference.tracks.each do |track| %>
+                <% if (track.userid == current_account.id && track.role == "PC Chair") %>
+                    <% @state1 =true %>
+                    <% break %>
+                <% end %>
+                <% if (track.userid == current_account.id && track.role == "PC Member") %>
+                    <% @state2 =true %>
+                    <% break %>
+                <% end %>
+            <% end %>
             <th>Title</th>
             <th>Author</th>
             <th>Download Link</th>
             <th>Reviews</th>
+            <th>Status</th>
+            <% if (@state1) %>
+                <th>Manage Paper</th>
+            <% end %>
+            <% if (@state2) %>
+                <th>Review Link</th>
+            <% end %>
         </tr>
     </thead>
     <tbody> 
@@ -19,6 +38,17 @@
        <td><%= paper.author %></td>
         <td><%= link_to "Download Paper", paper.attachment_url %></td>
         <td><%= link_to 'Reviews', paper %></td>
+        <% if (paper.accepted) %>
+            <td><%= "Accepted" %></td>
+        <% else %>
+            <td><%= "Not accepted" %></td>
+        <% end %>
+        <% if (@state1 && paper.accepted == false) %>
+        <td><%= button_to "Accept",  accept_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to accept #{paper.title}?"} %></td>
+        <% end %>
+        <% if (@state2) %>
+        <td><%= link_to "Review paper", new_review_path %></td>
+        <% end %>
         
      </tr>
     <% end %>
@@ -26,5 +56,5 @@
 </tbody>
 
 
-<%= link_to 'Edit', edit_conference_path(@conference) %> |
+<%= link_to 'New Paper', new_paper_path %>
 <%= link_to 'Back', conferences_path %>

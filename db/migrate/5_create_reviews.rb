@@ -4,7 +4,7 @@ class CreateReviews < ActiveRecord::Migration[5.0]
       t.integer :score
       t.text :comments
       t.references :paper, foreign_key: true
-
+      t.integer :memberid
       t.timestamps
     end
   end

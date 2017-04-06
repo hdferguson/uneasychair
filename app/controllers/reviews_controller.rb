@@ -11,25 +11,26 @@ class ReviewsController < ApplicationController
   # GET /reviews/1
   # GET /reviews/1.json
   def show
-    authenticate_account!
+  end
+  
+  def showid
+    @reviews = Review.all
   end
 
   # GET /reviews/new
   def new
-    authenticate_account!
     @review = Review.new
   end
 
   # GET /reviews/1/edit
   def edit
-    authenticate_account!
   end
 
   # POST /reviews
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
-
+    @review.memberid = current_account.id
     respond_to do |format|
       if @review.save
         format.html { redirect_to @review, notice: 'Review was successfully created.' }

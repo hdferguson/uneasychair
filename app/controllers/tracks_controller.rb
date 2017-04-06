@@ -38,13 +38,14 @@ class TracksController < ApplicationController
     @track.uapproved = false
     respond_to do |format|
       @state=true
-        @tracks.each do |track| 
-        if(track.conference == @track.conference && track.userid == @track.userid && track != @track)
-          @track.destroy
-          @state =false
-          format.html { redirect_to tracks_path, notice: 'Track not created. Only one track per user per conference.' }
-          format.json { render :show, status: :created, location: @track }
-          break
+          @tracks.each do |track| 
+          if(track.conference == @track.conference && track.userid == @track.userid && track != @track)
+            @track.destroy
+            @state =false
+            format.html { redirect_to tracks_path, notice: 'Track not created. Only one track per user per conference.' }
+            format.json { render :show, status: :created, location: @track }
+            break
+          end
         end
       if @track.save && @state
         format.html { redirect_to @track, notice: 'Track was successfully created.' }
@@ -52,7 +53,6 @@ class TracksController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @track.errors, status: :unprocessable_entity }
-      end
       end
     end
   end
@@ -89,6 +89,7 @@ class TracksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def track_params
-      params.require(:track).permit(:role, :conference_id, :user_id)
+      params.require(:track).permit(:role, :conference_id, :userid, :capproved, :uapproved)
     end
 end
+
