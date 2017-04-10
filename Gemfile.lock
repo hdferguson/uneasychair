@@ -39,6 +39,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     administrate (0.5.0)
       autoprefixer-rails (~> 6.0)
       bourbon (>= 5.0.0.beta.6)
@@ -76,6 +78,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    connection_pool (2.2.1)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
     debug_inspector (0.0.2)
@@ -268,6 +271,7 @@ GEM
     normalize-rails (4.1.1)
     orm_adapter (0.5.0)
     pg (0.18.4)
+    public_suffix (2.0.5)
     puma (3.7.1)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -302,6 +306,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (2.2.1)
     rake (12.0.0)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
@@ -311,6 +316,12 @@ GEM
       json (>= 1.8)
       nokogiri (~> 1.5)
       trollop (~> 2.1)
+    react_on_rails (6.4.2)
+      addressable
+      connection_pool
+      execjs (~> 2.5)
+      rails (>= 3.2)
+      rainbow (~> 2.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     sass (3.4.23)
@@ -381,6 +392,7 @@ DEPENDENCIES
   pundit
   rails (~> 5.0.2)
   rails_12factor (= 0.0.2)
+  react_on_rails (~> 6)
   sass-rails (~> 5.0)
   simple_form
   spring
