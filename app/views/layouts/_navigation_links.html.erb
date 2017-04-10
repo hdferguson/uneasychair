@@ -1,4 +1,5 @@
-<li><%= link_to 'Home', conferences_path %></li>
+<li><%= link_to "Home", conferences_path(spa: false) %></li>      
+<li><%= link_to "Home (SPA)", conferences_path(spa: true) %></li>
 
 <% if account_signed_in? %>
   <% if current_account.accountable_type == "SuperAccount" %>

@@ -6,6 +6,18 @@ class ConferencesController < ApplicationController
   def index
     @state = false
     @conferences = Conference.all
+
+    respond_to do |format|
+      format.html {
+          if (params[:spa] && params[:spa] == "true")
+              redirect_to hello_world_url
+          # the else case below is by default
+          # else
+          #    render 'index'
+          end
+      }
+      format.json {render json: @products}
+    end
   end
 
   # GET /conferences/1
