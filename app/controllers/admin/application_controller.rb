@@ -9,7 +9,7 @@ module Admin
     before_action :authenticate_admin
 
     def authenticate_admin
-     redirect_to papers_url, notice: 'Admin\'s Privilege Is Needed' unless current_account && current_account.accountable_type == 'SuperAccount'
+      # TODO Add authentication logic here.
     end
 
     # Override this value to specify the number of elements to display at a time
