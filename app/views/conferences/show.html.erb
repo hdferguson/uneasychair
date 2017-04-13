@@ -38,16 +38,18 @@
        <td><%= paper.author %></td>
         <td><%= link_to "Download Paper", paper.attachment_url %></td>
         <td><%= link_to 'Reviews', paper %></td>
-        <% if (paper.accepted) %>
-            <td><%= "Accepted" %></td>
+        <% if (paper.rating >= 5.5 and paper.accepted) %>
+            <td><%= "Accepted with rating of " + "%05.2f" % paper.rating %></td>
         <% else %>
-            <td><%= "Not accepted" %></td>
+            <td><%= "Not accepted with rating of " + "%05.2f" % paper.rating %></td>
         <% end %>
         <% if (@state1 && paper.accepted == false) %>
         <td><%= button_to "Accept",  accept_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to accept #{paper.title}?"} %></td>
+        <% else %>
+        <td><%= button_to "Decline",  decline_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to decline #{paper.title}?"} %></td>
         <% end %>
         <% if (@state2) %>
-        <td><%= link_to "Review paper", new_review_path %></td>
+        <td><%= link_to "Review paper", new_review_path(id: paper.id) %></td>
         <% end %>
         
      </tr>

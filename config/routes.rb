@@ -24,6 +24,10 @@ Rails.application.routes.draw do
   resources :papers do
     put 'accept', on: :member
     post 'accept', on: :member
+    put 'decline', on: :member
+    post 'decline', on: :member
+    put 'rate', on: :member
+    post 'rate', on: :member
     get "showid", on: :member
   end
   root "papers#index"

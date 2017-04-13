@@ -19,6 +19,7 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/new
   def new
+    @paper = Paper.find_by_id(params[:id])
     @review = Review.new
   end
 
@@ -33,6 +34,18 @@ class ReviewsController < ApplicationController
     @review.memberid = current_account.id
     respond_to do |format|
       if @review.save
+         @paper = @review.paper
+         @rate = 0.0
+        @top = 0.0
+        @bottem = 0.0
+        if(@paper.reviews.count >= 3)
+            @paper.reviews.each do |review| 
+              @top += review.score * review.confidence
+              @bottem += review.confidence
+            end
+            @rate = @top / @bottem
+        end
+        @paper.update_attribute(:rating, @paper.rating = @rate)
         format.html { redirect_to @review, notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
@@ -71,9 +84,23 @@ class ReviewsController < ApplicationController
     def set_review
       @review = Review.find(params[:id])
     end
-
+    
+    def prate(id)
+       @paper = Paper.find_by_id(params[:id])
+    @rate = 0.0
+    @top = 0.0
+    @bottem = 0.0
+    if(@paper.reviews.count >= 3)
+      @paper.reviews.each do |review| 
+        @top += review.score * review.confidence
+        @bottem += review.confidence
+      end
+      @rate = @top / @bottem
+    end
+      @paper.update_attribute(:rating, @paper.rating = @rate)
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_params
-      params.require(:review).permit(:score, :comments, :paper_id)
+      params.require(:review).permit(:score, :confidence, :comments, :paper_id)
     end
 end

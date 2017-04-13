@@ -16,6 +16,32 @@ class PapersController < ApplicationController
     end
   end
   
+  def decline
+    @paper = Paper.find_by_id(params[:id])
+    respond_to do |format|
+      @paper.update_attribute(:accepted, @paper.accepted = false)
+      format.html { redirect_to @paper.conference }
+    end
+  end
+  
+  def rate
+    @paper = Paper.find_by_id(params[:id])
+    @rate = 0.0
+    @top = 0.0
+    @bottem = 0.0
+    if(@paper.reviews.count >= 3)
+      @paper.reviews.each do |review| 
+        @top += review.score * review.confidence
+        @bottem += review.confidence
+      end
+      @rate = @top / @bottem
+    end
+    respond_to do |format|
+      @paper.update_attribute(:rating, @paper.rating = @rate)
+      format.html { redirect_to @paper.conference }
+    end
+  end
+  
   def show
     @paper = Paper.find(params[:id])
   end
@@ -28,7 +54,7 @@ class PapersController < ApplicationController
   @paper = Paper.new(paper_params)
   @paper.authorid = current_account.id
   @paper.accepted = false
-
+  @paper.rating = 0.0
     if @paper.save
       redirect_to @paper.conference, notice: "The paper #{@paper.title} has been uploaded."
     else

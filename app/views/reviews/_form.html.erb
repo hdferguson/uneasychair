@@ -15,6 +15,11 @@
     <%= f.label :score %>(0-10)
     <%= f.number_field :score %>
   </div>
+  
+  <div class="field">
+    <%= f.label :cofidence %>(1-5)
+    <%= f.number_field :confidence %>
+  </div>
 
   <div class="field">
     <%= f.label :comments %>
@@ -23,7 +28,12 @@
 
   <div class="field">
     <%= f.label :paper_id %>
-    <%= f.collection_select :paper_id, Paper.order(:title),:id,:title, include_blank: false %>
+     <%if paper == nil %>
+       <%= f.collection_select :paper_id, Paper.order(:title),:id,:title, include_blank: false %>
+     <% end %>
+     <%if paper != nil %>
+       <%= f.select(:paper_id, options_for_select([[paper.title, paper.id]])) %>
+     <% end %>
     <% f.text_field :paper_id %>
   </div>
 

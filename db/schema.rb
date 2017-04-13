@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20170404080526) do
     t.string   "attachment"
     t.integer  "conference_id"
     t.integer  "authorid"
+    t.decimal  "rating"
     t.boolean  "accepted"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 20170404080526) do
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "score"
+    t.integer  "confidence"
     t.text     "comments"
     t.integer  "paper_id"
     t.integer  "memberid"
