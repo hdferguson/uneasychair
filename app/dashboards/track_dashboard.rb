@@ -9,9 +9,11 @@ class TrackDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     conference: Field::BelongsTo,
-    account: Field::BelongsTo,
     id: Field::Number,
     role: Field::String,
+    userid: Field::Number,
+    capproved: Field::Boolean,
+    uapproved: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -23,18 +25,20 @@ class TrackDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :conference,
-    :account,
     :id,
     :role,
+    :userid,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :conference,
-    :account,
     :id,
     :role,
+    :userid,
+    :capproved,
+    :uapproved,
     :created_at,
     :updated_at,
   ].freeze
@@ -44,8 +48,10 @@ class TrackDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :conference,
-    :account,
     :role,
+    :userid,
+    :capproved,
+    :uapproved,
   ].freeze
 
   # Overwrite this method to customize how tracks are displayed

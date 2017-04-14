@@ -8,6 +8,7 @@
         <tr>
             <% @state1 =false %>
             <% @state2 =false %>
+            <% if(current_account != nil) %>
             <% @conference.tracks.each do |track| %>
                 <% if (track.userid == current_account.id && track.role == "PC Chair") %>
                     <% @state1 =true %>
@@ -17,6 +18,7 @@
                     <% @state2 =true %>
                     <% break %>
                 <% end %>
+            <% end %>
             <% end %>
             <th>Title</th>
             <th>Author</th>
