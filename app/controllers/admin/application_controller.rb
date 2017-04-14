@@ -9,6 +9,7 @@ module Admin
     before_action :authenticate_admin
 
     def authenticate_admin
+      redirect_to conferences_path, notice: 'Admin\'s Privilege Is Needed' unless current_account && current_account.accountable_type == 'SuperAccount'
       # TODO Add authentication logic here.
     end
 
