@@ -18,7 +18,7 @@
          <%= " Authors can not change roles."%>
     <% end %>
     <% if @track.role != "Author" %>
-        <%= f.select :role,  ["PC Chair", "PC Member", "Chair"] %>
+        <%= f.select :role,  ["PC Member"] %>
     <% end %>
   </div>
 
@@ -32,7 +32,11 @@
     <%= f.label :userid %>
     <%= @track.userid %>
   </div>
- 
+  
+   <div class="field">
+    <%= f.label :committee_id %>
+    <%= f.collection_select :committee_id, @track.conference.committees, :id, :name %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>
