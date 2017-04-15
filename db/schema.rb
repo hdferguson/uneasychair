@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404080526) do
+ActiveRecord::Schema.define(version: 20170413133607) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20170404080526) do
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   end
 
+  create_table "committees", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "conference_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["conference_id"], name: "index_committees_on_conference_id"
+    t.index ["user_id"], name: "index_committees_on_user_id"
+  end
+
   create_table "conferences", force: :cascade do |t|
     t.string   "name"
     t.integer  "chairid"
@@ -45,11 +55,13 @@ ActiveRecord::Schema.define(version: 20170404080526) do
     t.string   "author"
     t.string   "attachment"
     t.integer  "conference_id"
+    t.integer  "committee_id"
     t.integer  "authorid"
     t.decimal  "rating"
     t.boolean  "accepted"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["committee_id"], name: "index_papers_on_committee_id"
     t.index ["conference_id"], name: "index_papers_on_conference_id"
   end
 
@@ -73,11 +85,13 @@ ActiveRecord::Schema.define(version: 20170404080526) do
   create_table "tracks", force: :cascade do |t|
     t.string   "role"
     t.integer  "conference_id"
+    t.integer  "committee_id"
     t.integer  "userid"
     t.boolean  "capproved"
     t.boolean  "uapproved"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["committee_id"], name: "index_tracks_on_committee_id"
     t.index ["conference_id"], name: "index_tracks_on_conference_id"
   end
 

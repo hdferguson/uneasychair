@@ -11,24 +11,24 @@
       </ul>
     </div>
   <% end %>
+  <% @conference = Conference.find_by_id(1) %>
 
   <div class="field">
     <%= f.label :role %>
-    <%= f.select :role,  ["Author", "PC Chair", "PC Member", "Chair"] %>
+    <%= f.select :role,  ["Author", "PC Member"] %>
   </div>
 
  
   <div class="field">
     <%= f.label :conference_id %>
-    <%= f.collection_select :conference_id, Conference.all, :id, :name %>
+    <%= f.collection_select :conference_id, Conference.all, :id, :name, include_blank: false %>
+    <% #@conference = Conference.find_by_id(params[conference_id]) %>
+    <% if @conference == nil%>
+    <% @conference = Conference.find_by_id(1) %>
+    <% end %>
     <% f.text_field :conference_id %>
   </div>
   
-   <div class="field">
-    <%= f.label :userid %>
-    <%= userid = pundit_user.id %>
-    <% f.number_field :userid %>
-  </div>
  
 
   <div class="actions">

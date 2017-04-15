@@ -49,7 +49,7 @@ class ConferencesController < ApplicationController
     @conference.approved = false
     respond_to do |format|
       if @conference.save
-        format.html { redirect_to @conference, notice: 'Conference was successfully created.' }
+        format.html { redirect_to new_committee_path, notice: 'Conference was successfully created.' }
         format.json { render :show, status: :created, location: @conference }
       else
         format.html { render :new }

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :committees
   get 'hello_world', to: 'hello_world#index'
   namespace :admin do
     resources :accounts
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
     resources :papers
     resources :reviews
     resources :tracks
+    resources :committees
     resources :users
     resources :super_accounts
 
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :tracks
+  resources :committees
   devise_for :accounts,  :controllers => { :registrations => 'registrations' }
   resources :users, only: [:edit, :update]
   resources :conferences do
@@ -30,7 +33,7 @@ Rails.application.routes.draw do
     post 'rate', on: :member
     get "showid", on: :member
   end
-  root "papers#index"
+  root "conferences#index"
   get "reviews/new"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

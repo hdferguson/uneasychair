@@ -48,7 +48,7 @@ class TracksController < ApplicationController
           end
         end
       if @track.save && @state
-        format.html { redirect_to @track, notice: 'Track was successfully created.' }
+        format.html { render :edit, notice: 'Track was successfully created.' }
         format.json { render :show, status: :created, location: @track }
       else
         format.html { render :new }
@@ -60,13 +60,15 @@ class TracksController < ApplicationController
   # PATCH/PUT /tracks/1
   # PATCH/PUT /tracks/1.json
   def update
+    @temp = @track.committee
     respond_to do |format|
       if @track.update(track_params)
-        format.html { redirect_to @track, notice: 'Track was successfully updated.' }
-        format.json { render :show, status: :ok, location: @track }
-      else
-        format.html { render :edit }
-        format.json { render json: @track.errors, status: :unprocessable_entity }
+          format.html { redirect_to @track, notice: 'Track was successfully updated.' }
+          format.json { render :show, status: :ok, location: @track }
+        else
+          @track.committee = @temp
+          format.html { render :edit, notice: 'You are the PC Chair of this conference.' }
+          format.json { render json: @track.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -89,7 +91,7 @@ class TracksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def track_params
-      params.require(:track).permit(:role, :conference_id, :userid, :capproved, :uapproved)
+      params.require(:track).permit(:role, :conference_id, :committee_id, :userid, :capproved, :uapproved)
     end
 end
 

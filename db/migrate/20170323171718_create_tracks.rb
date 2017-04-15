@@ -3,6 +3,7 @@ class CreateTracks < ActiveRecord::Migration[5.0]
     create_table :tracks do |t|
       t.string :role
       t.references :conference
+      t.references :committee, foreign_key: true
       t.integer :userid
       t.boolean :capproved
       t.boolean :uapproved
