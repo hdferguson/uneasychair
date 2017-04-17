@@ -15,11 +15,15 @@ Rails.application.routes.draw do
   end
 
   resources :tracks
-  resources :committees
+  resources :committees do
+    resources :papers, only: [:new, :create]
+  end
   devise_for :accounts,  :controllers => { :registrations => 'registrations' }
   resources :users, only: [:edit, :update]
   resources :conferences do
     get "showid", on: :member
+    resources :tracks, only: [:new, :create]
+    resources :committees, only: [:new, :create]
   end
   resources :reviews do
     get "showid", on: :member
@@ -32,6 +36,7 @@ Rails.application.routes.draw do
     put 'rate', on: :member
     post 'rate', on: :member
     get "showid", on: :member
+    resources :reviews, only: [:new, :create]
   end
   root "conferences#index"
   get "reviews/new"

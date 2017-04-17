@@ -1,4 +1,4 @@
-<%= form_for(paper) do |f| %>
+<%= form_for([committee,paper]) do |f| %>
   <% if paper.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(paper.errors.count, "error") %> prohibited this paper from being saved:</h2>
@@ -22,9 +22,13 @@
   </div>
 
   <div class="field">
-    <%= f.label :conference_id %>
-    <%= f.collection_select :conference_id, Conference.all, :id, :name %>
-    <% f.text_field :conference_id %>
+    <%= f.label :committee_id %>
+    <% if committee == nil %>
+      <%= f.collection_select :committee_id, Committee.all, :id, :name %>
+    <% else %>
+      <%= f.select(:committee_id, options_for_select([[committee.name, committee.id]])) %>
+    <% end %>
+    <% f.text_field :committee_id %>
   </div>
   
   <div class="field">

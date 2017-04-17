@@ -1,4 +1,4 @@
-<%= form_for(committee) do |f| %>
+<%= form_for([conference,committee]) do |f| %>
   <% if committee.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(committee.errors.count, "error") %> prohibited this committee from being saved:</h2>
@@ -19,14 +19,19 @@
   
    <div class="field">
     <%= f.label :user_id %>
+    <%= "Person to be PC Chair." %>
        <%= f.collection_select :user_id, User.order(:name),:id,:name, include_blank: false %>
   </div>
   
 
   <div class="field">
     <%= f.label :conference_id %>
-       <%= f.collection_select :conference_id, Conference.order(:name),:id,:name, include_blank: false %>
-
+    <% if conference != nil%>
+    <%= f.select(:conference_id, options_for_select([[conference.name, conference.id]])) %>
+    <% else %>
+      <%= f.collection_select :conference_id, Conference.all, :id, :name, include_blank: false %>
+    <% end %>
+    <% f.text_field :conference_id %>
   </div>
   
  

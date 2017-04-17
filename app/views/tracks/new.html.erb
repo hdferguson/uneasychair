@@ -1,7 +1,7 @@
 <br />
 <br />
 <h1>Join Conference</h1>
-
-<%= render 'form', track: @track %>
+<% #@conference.approved = true %>
+<%= render 'form', track: @track, conference: @conference %>
 
 <%= link_to 'Back', tracks_path %>

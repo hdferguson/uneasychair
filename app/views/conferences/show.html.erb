@@ -47,11 +47,12 @@
         <% end %>
         <% if (@state1 && paper.accepted == false) %>
         <td><%= button_to "Accept",  accept_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to accept #{paper.title}?"} %></td>
-        <% else %>
+        <% else if @state1%>
         <td><%= button_to "Decline",  decline_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to decline #{paper.title}?"} %></td>
         <% end %>
+        <% end %>
         <% if (@state2) %>
-        <td><%= link_to "Review paper", new_review_path(id: paper.id) %></td>
+        <td><%= link_to "Review paper", new_paper_review_path(paper) %></td>
         <% end %>
         
      </tr>
@@ -59,6 +60,9 @@
  </tbody>
 </tbody>
 
-
-<%= link_to 'New Paper', new_paper_path %>
-<%= link_to 'Back', conferences_path %>
+<% @conference.committees.each do |committee| %>
+    <%= committee.name %>
+    <%= link_to 'New Paper ', new_committee_paper_path(committee) %>
+<% end %>
+<%= link_to 'Join Conference ', new_conference_track_path(@conference) %>
+<%= link_to 'Back ', conferences_path %>
