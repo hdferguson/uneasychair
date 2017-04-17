@@ -19,7 +19,7 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/new
   def new
-    @paper = Paper.find_by_id(params[:id])
+    @paper = Paper.find_by_id(params[:paper_id])
     @review = Review.new
   end
 
@@ -49,7 +49,7 @@ class ReviewsController < ApplicationController
         format.html { redirect_to @review, notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
-        format.html { render :new }
+        format.html { render :new}
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end

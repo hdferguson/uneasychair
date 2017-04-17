@@ -1,4 +1,4 @@
-<%= form_for(review) do |f| %>
+<%= form_for([paper,review]) do |f| %>
   <% if review.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
@@ -28,8 +28,8 @@
 
   <div class="field">
     <%= f.label :paper_id %>
-     <%if paper == nil %>
-       <%= f.collection_select :paper_id, Paper.order(:title),:id,:title, include_blank: false %>
+     <%if paper == nil%>
+       <%= f.collection_select :paper_id, Paper.all, :id, :title %>
      <% end %>
      <%if paper != nil %>
        <%= f.select(:paper_id, options_for_select([[paper.title, paper.id]])) %>

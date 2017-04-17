@@ -5,6 +5,7 @@ class PapersController < ApplicationController
   end
 
   def new
+     @committee = Committee.find_by_id(params[:committee_id])
      @paper = Paper.new
   end
   
@@ -52,6 +53,7 @@ class PapersController < ApplicationController
 
   def create
   @paper = Paper.new(paper_params)
+  @paper.conference = @paper.committee.conference
   @paper.authorid = current_account.id
   @paper.accepted = false
   @paper.rating = 0.0

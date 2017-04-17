@@ -1,5 +1,5 @@
 
-<%= form_for(track) do |f| %>
+<%= form_for([conference,track]) do |f| %>
   <% if track.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(track.errors.count, "error") %> prohibited this track from being saved:</h2>
@@ -11,7 +11,6 @@
       </ul>
     </div>
   <% end %>
-  <% @conference = Conference.find_by_id(1) %>
 
   <div class="field">
     <%= f.label :role %>
@@ -21,12 +20,22 @@
  
   <div class="field">
     <%= f.label :conference_id %>
-    <%= f.collection_select :conference_id, Conference.all, :id, :name, include_blank: false %>
-    <% #@conference = Conference.find_by_id(params[conference_id]) %>
-    <% if @conference == nil%>
-    <% @conference = Conference.find_by_id(1) %>
+    <% if conference != nil%>
+    <%= f.select(:conference_id, options_for_select([[conference.name, conference.id]])) %>
+    <% else %>
+      <%= f.collection_select :conference_id, Conference.all, :id, :name, include_blank: false %>
     <% end %>
     <% f.text_field :conference_id %>
+  </div>
+  
+  
+  <div class="field">
+    <%= f.label :committee_id %>
+    <% if conference != nil%>
+      <%= f.collection_select :committee_id, conference.committees, :id, :name %>
+    <% else %>
+      <%= f.collection_select :committee_id, Committee.all, :id, :name, include_blank: false %>
+    <% end %>
   </div>
   
  

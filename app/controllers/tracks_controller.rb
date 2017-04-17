@@ -20,6 +20,7 @@ class TracksController < ApplicationController
 
   # GET /tracks/new
   def new
+    @conference = Conference.find_by_id(params[:conference_id])
     @track = Track.new
     @tracks = Track.all
   end
@@ -31,11 +32,11 @@ class TracksController < ApplicationController
   # POST /tracks
   # POST /tracks.json
   def create
-    @tracks = Track.all
     @track = Track.new(track_params)
     @track.userid = current_account.id
     @track.capproved = false
     @track.uapproved = false
+    @tracks = Track.all
     respond_to do |format|
       @state=true
           @tracks.each do |track| 
