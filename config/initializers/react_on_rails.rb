@@ -63,14 +63,14 @@ ReactOnRails.configure do |config|
   # I18N OPTIONS
   ################################################################################
   # Replace the following line to the location where you keep translation.js & default.js.
-  config.i18n_dir = Rails.root.join("client", "app", "libs", "i18n")
+  #config.i18n_dir = Rails.root.join("client", "app", "libs", "i18n")
 
   ################################################################################
   # MISCELLANEOUS OPTIONS
   ################################################################################
 
   # Default is false, enable if your content security policy doesn't include `style-src: 'unsafe-inline'`
-  config.skip_display_none = false
+  #config.skip_display_none = false
 
   # The server render method - either ExecJS or NodeJS
   config.server_render_method = "ExecJS"
