@@ -28,7 +28,7 @@
       <tr>
         <td><%= paper.title %></td>
         <td><%= paper.author %></td>
-        <td><%= link_to paper.conference.name, paper.conference %></td>
+        <td><%= link_to paper.committee.conference.name, paper.committee.conference %></td>
         <td><%= link_to "Download Paper", paper.attachment_url %></td>
         <td><%= paper.accepted %></td>
         <% if paper.authorid == current_account.id %>

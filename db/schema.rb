@@ -36,9 +36,11 @@ ActiveRecord::Schema.define(version: 20170413133607) do
     t.string   "name"
     t.integer  "user_id"
     t.integer  "conference_id"
+    t.integer  "track_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["conference_id"], name: "index_committees_on_conference_id"
+    t.index ["track_id"], name: "index_committees_on_track_id"
     t.index ["user_id"], name: "index_committees_on_user_id"
   end
 

@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.memberid = current_account.id
-    respond_to do |format|
+    @state = false
       if @review.save
          @paper = @review.paper
          @rate = 0.0
@@ -42,17 +42,30 @@ class ReviewsController < ApplicationController
             @paper.reviews.each do |review| 
               @top += review.score * review.confidence
               @bottem += review.confidence
-            end
+              end
             @rate = @top / @bottem
         end
-        @paper.update_attribute(:rating, @paper.rating = @rate)
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
-        format.json { render :show, status: :created, location: @review }
+        @paper.committee.tracks.each do |track| 
+        if( track.userid == current_account.id && track.role == "PC Member" )
+          @state = true
+        end
+        end
+        if(@state)
+          respond_to do |format|
+          @paper.update_attribute(:rating, @paper.rating = @rate)
+          format.html { redirect_to @review, notice: 'Review was successfully created.' }
+          format.json { render :show, status: :created, location: @review }
+          end
+        else
+        @review.destroy
+        redirect_to @paper.committee.conference, notice: "You are not an PC member of that committee. Review not created."
+        end
       else
+        respond_to do |format|
         format.html { render :new}
         format.json { render json: @review.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # PATCH/PUT /reviews/1

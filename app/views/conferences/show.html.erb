@@ -2,24 +2,43 @@
 <br />
 <p id="notice"><%= notice %></p>
 <h1> Conference: <%= @conference.name %></h1>
-
-<table class = "table table-bordered table-striped">
-    <thead>
-        <tr>
+<% @state3 = false %>
+<% if(current_account != nil) %>
+  <% if (@conference.chairid == current_account.id) %>
+      <% @state3 =true %>
+  <% end %>
+<% end %>
+<% if (@state3) %>
+      <%= link_to 'Add Committee ', new_conference_committee_path(@conference) %>
+  <% end %>
+<% @conference.committees.each do |committee| %>
             <% @state1 =false %>
             <% @state2 =false %>
-            <% if(current_account != nil) %>
-            <% @conference.tracks.each do |track| %>
-                <% if (track.userid == current_account.id && track.role == "PC Chair") %>
+            <% @state4 =false %>
+            <% if(current_account != nil && @state3 == false) %>
+                <% if (committee.user == current_account) %>
                     <% @state1 =true %>
-                    <% break %>
                 <% end %>
+            <% if(@state1 == false) %>
+            <% committee.tracks.each do |track| %>
                 <% if (track.userid == current_account.id && track.role == "PC Member") %>
                     <% @state2 =true %>
                     <% break %>
                 <% end %>
+                <% if (track.userid == current_account.id && track.role == "Author") %>
+                    <% @state4 =true %>
+                    <% break %>
+                <% end %>
             <% end %>
             <% end %>
+            <% end %>
+    <p><%= committee.name %>
+    <% if (@state4)%>
+    <%= link_to 'New Paper ', new_committee_paper_path(committee) %>
+    <% end %></p>
+<table class = "table table-bordered table-striped">
+    <thead>
+        <tr>
             <th>Title</th>
             <th>Author</th>
             <th>Download Link</th>
@@ -34,7 +53,7 @@
         </tr>
     </thead>
     <tbody> 
-  <% @conference.papers.each do |paper| %>
+  <% committee.papers.each do |paper| %>
      <tr>
        <td><%= paper.title %></td>
        <td><%= paper.author %></td>
@@ -59,10 +78,6 @@
     <% end %>
  </tbody>
 </tbody>
-
-<% @conference.committees.each do |committee| %>
-    <%= committee.name %>
-    <%= link_to 'New Paper ', new_committee_paper_path(committee) %>
 <% end %>
 <%= link_to 'Join Conference ', new_conference_track_path(@conference) %>
 <%= link_to 'Back ', conferences_path %>
