@@ -26,20 +26,20 @@ class PapersController < ApplicationController
   end
   
   def rate
-    @paper = Paper.find_by_id(params[:id])
+    @papers = Paper.all
+    @papers.each do |paper|
     @rate = 0.0
     @top = 0.0
     @bottem = 0.0
-    if(@paper.reviews.count >= 3)
-      @paper.reviews.each do |review| 
+        paper.reviews.each do |review|
         @top += review.score * review.confidence
         @bottem += review.confidence
       end
       @rate = @top / @bottem
+      paper.update_attribute(:rating, paper.rating = @rate)
     end
-    respond_to do |format|
-      @paper.update_attribute(:rating, @paper.rating = @rate)
-      format.html { redirect_to @paper.conference }
+      respond_to do |format|
+      format.html { redirect_to papers_path }
     end
   end
   

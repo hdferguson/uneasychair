@@ -11,6 +11,10 @@ class CommitteesController < ApplicationController
   # GET /committees/1.json
   def show
   end
+  
+  def showid
+    @committees = Committee.all
+  end
 
   # GET /committees/new
   def new
@@ -68,6 +72,12 @@ class CommitteesController < ApplicationController
   # DELETE /committees/1
   # DELETE /committees/1.json
   def destroy
+    @committee.papers.each do |paper| 
+        paper.destroy
+   end
+   @committee.tracks.each do |track| 
+        track.destroy
+   end
     @committee.destroy
     respond_to do |format|
       format.html { redirect_to committees_url, notice: 'Committee was successfully destroyed.' }

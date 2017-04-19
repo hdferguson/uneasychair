@@ -2,16 +2,13 @@
 <br />
 <h1>Editing Conference</h1>
 <% @state=true %>
-<% @conference.tracks.each do |track| %>
-    <% if(track.userid == current_account.id && track.role == "Chair") %>
+    <% if(@conference.chairid == current_account.id) %>
         <%= render 'form', conference: @conference %>
 
         <%= link_to 'Show', @conference %> |
         <%= link_to 'Back', conferences_path %>
         <% @state = false %>
-        <% break %>
     <% end %>
-<% end %>
 <% if(@state) %>
     <h3>Silly hacker this is not for you.</h3>
 <% end %>

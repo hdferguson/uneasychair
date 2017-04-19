@@ -38,13 +38,11 @@ class ReviewsController < ApplicationController
          @rate = 0.0
         @top = 0.0
         @bottem = 0.0
-        if(@paper.reviews.count >= 3)
             @paper.reviews.each do |review| 
               @top += review.score * review.confidence
               @bottem += review.confidence
               end
             @rate = @top / @bottem
-        end
         @paper.committee.tracks.each do |track| 
         if( track.userid == current_account.id && track.role == "PC Member" )
           @state = true
