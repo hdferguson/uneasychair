@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Conference from './Conference';
 
 const ConferenceList = React.createClass ({

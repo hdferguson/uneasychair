@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Conference = React.createClass ({
   propTypes: {
-    name: React.PropTypes.string,
+    name: PropTypes.string,
   },
 
   render: function() {
