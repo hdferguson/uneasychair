@@ -15,8 +15,8 @@
             <% @state1 =false %>
             <% @state2 =false %>
             <% @state4 =false %>
-            <% if(current_account != nil && @state3 == false) %>
-                <% if (committee.user == current_account) %>
+            <% if(current_account != nil) %>
+                <% if (committee.user.id == current_account.id) %>
                     <% @state1 =true %>
                 <% end %>
             <% if(@state1 == false) %>
@@ -32,14 +32,11 @@
             <% end %>
             <% end %>
             <% end %>
-    <p><%= committee.name %>
-    <% if (@state4)%>
-    <%= link_to 'New Paper ', new_committee_paper_path(committee) %>
-    <% end %></p>
 <table class = "table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Title</th>
+            <th>Committee</th>
+            <th>Paper Title</th>
             <th>Author</th>
             <th>Download Link</th>
             <th>Reviews</th>
@@ -50,11 +47,15 @@
             <% if (@state2) %>
                 <th>Review Link</th>
             <% end %>
+            <% if (@state4)%>
+                <th><%= link_to 'New Paper ', new_committee_paper_path(committee) %></th>
+            <% end %>
         </tr>
     </thead>
     <tbody> 
   <% committee.papers.each do |paper| %>
      <tr>
+        <td><%= committee.name %></td>
        <td><%= paper.title %></td>
        <td><%= paper.author %></td>
         <td><%= link_to "Download Paper", paper.attachment_url %></td>

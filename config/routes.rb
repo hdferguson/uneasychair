@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :committees
   get 'hello_world', to: 'hello_world#index'
   namespace :admin do
     resources :accounts
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :tracks
   resources :committees do
+    get "showid", on: :member
     resources :papers, only: [:new, :create]
   end
   devise_for :accounts,  :controllers => { :registrations => 'registrations' }

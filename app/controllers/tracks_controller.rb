@@ -97,6 +97,16 @@ class TracksController < ApplicationController
   # DELETE /tracks/1
   # DELETE /tracks/1.json
   def destroy
+    @track.committee.papers.each do |paper| 
+      if(paper.authorid == @track.userid)
+        paper.destroy
+      end
+      paper.reviews.each do |review|
+        if(review.memberid == @track.userid)
+          review.destroy
+        end
+      end
+   end
     @track.destroy
     respond_to do |format|
       format.html { redirect_to tracks_url, notice: 'Track was successfully destroyed.' }
