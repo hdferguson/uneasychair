@@ -6,7 +6,7 @@ const ConferenceList = React.createClass ({
   render: function() {
     var conferences = [];
 
-    this.props.conferences.forEach(function(book) {
+    this.props.conferences.forEach(function(conference) {
       conferences.push(<Conference conference={conference}
                          key={'conference' + conference.id}/>);
     }.bind(this));
