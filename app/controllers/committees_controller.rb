@@ -16,6 +16,10 @@ class CommitteesController < ApplicationController
     @committees = Committee.all
   end
 
+  def members
+    @committee = Committee.find_by_id(params[:id])
+  
+  end
   # GET /committees/new
   def new
     @conference = Conference.find_by_id(params[:conference_id])

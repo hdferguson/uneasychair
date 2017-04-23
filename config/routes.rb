@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :tracks
   resources :committees do
     get "showid", on: :member
+    get "members", on: :member
     resources :papers, only: [:new, :create]
   end
   devise_for :accounts,  :controllers => { :registrations => 'registrations' }

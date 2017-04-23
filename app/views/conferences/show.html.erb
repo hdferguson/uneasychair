@@ -11,74 +11,37 @@
 <% if (@state3) %>
       <%= link_to 'Add Committee ', new_conference_committee_path(@conference) %>
   <% end %>
-<% @conference.committees.each do |committee| %>
-            <% @state1 =false %>
-            <% @state2 =false %>
-            <% @state4 =false %>
-            <% if(current_account != nil) %>
-                <% if (committee.user.id == current_account.id) %>
-                    <% @state1 =true %>
-                <% end %>
-            <% if(@state1 == false) %>
-            <% committee.tracks.each do |track| %>
-                <% if (track.userid == current_account.id && track.role == "PC Member") %>
-                    <% @state2 =true %>
-                    <% break %>
-                <% end %>
-                <% if (track.userid == current_account.id && track.role == "Author") %>
-                    <% @state4 =true %>
-                    <% break %>
-                <% end %>
-            <% end %>
-            <% end %>
-            <% end %>
+           
+        
 <table class = "table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Committee</th>
-            <th>Paper Title</th>
-            <th>Author</th>
-            <th>Download Link</th>
-            <th>Reviews</th>
-            <th>Status</th>
-            <% if (@state1) %>
-                <th>Manage Paper</th>
-            <% end %>
-            <% if (@state2) %>
-                <th>Review Link</th>
-            <% end %>
-            <% if (@state4)%>
-                <th><%= link_to 'New Paper ', new_committee_paper_path(committee) %></th>
+            <th>Committee Name</th>
+            <th>Papers</th>
+            <th>Tracks</th>
+            <th>Number of members</th>
+
+            <% if (@state3) %>
+                <th>Manage</th>
+          
+                <th>Delete</th>
             <% end %>
         </tr>
     </thead>
     <tbody> 
-  <% committee.papers.each do |paper| %>
+     <% @conference.committees.each do |committee| %>
      <tr>
         <td><%= committee.name %></td>
-       <td><%= paper.title %></td>
-       <td><%= paper.author %></td>
-        <td><%= link_to "Download Paper", paper.attachment_url %></td>
-        <td><%= link_to 'Reviews', paper %></td>
-        <% if (paper.rating >= 5.5 and paper.accepted) %>
-            <td><%= "Accepted with rating of " + "%05.2f" % paper.rating %></td>
-        <% else %>
-            <td><%= "Not accepted with rating of " + "%05.2f" % paper.rating %></td>
+       <td><%= link_to 'Papers', committee %></td>
+       <td><%= link_to 'Tracks', members_committee_path(committee) %></td>
+        <td><%= committee.tracks.count + 2 %></td>
+        <% if (@state3) %>
+            <td><%= link_to 'Edit', edit_committee_path(committee) %></td>
+            <td><%= link_to 'Destroy', committee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
-        <% if (@state1 && paper.accepted == false) %>
-        <td><%= button_to "Accept",  accept_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to accept #{paper.title}?"} %></td>
-        <% else if @state1%>
-        <td><%= button_to "Decline",  decline_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to decline #{paper.title}?"} %></td>
-        <% end %>
-        <% end %>
-        <% if (@state2) %>
-        <td><%= link_to "Review paper", new_paper_review_path(paper) %></td>
-        <% end %>
-        
      </tr>
-    <% end %>
+     <% end %>
  </tbody>
 </tbody>
-<% end %>
 <%= link_to 'Join Conference ', new_conference_track_path(@conference) %>
 <%= link_to 'Back ', conferences_path %>

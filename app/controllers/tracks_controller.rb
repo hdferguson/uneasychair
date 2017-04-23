@@ -48,7 +48,7 @@ class TracksController < ApplicationController
           @track.destroy
           @state =false
           redirect_to @track.conference, notice: "You are already the chair of this conference."
-        else if @track.conference.chairid == @committee.user.id
+        else if @track.conference.chairid == @track.committee.user.id
           @track.destroy
           @state =false
           redirect_to @conference, notice: "You are already a PC chair of this committee."
@@ -125,4 +125,3 @@ class TracksController < ApplicationController
       params.require(:track).permit(:role, :conference_id, :committee_id, :userid, :capproved, :uapproved)
     end
 end
-
