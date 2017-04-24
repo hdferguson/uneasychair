@@ -8,13 +8,15 @@ class PaperDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    conference: Field::BelongsTo,
+    committee: Field::BelongsTo,
     reviews: Field::HasMany,
     id: Field::Number,
     title: Field::String,
     author: Field::String,
     attachment: Field::String,
+    conference_id: Field::Number,
     authorid: Field::Number,
+    rating: Field::String.with_options(searchable: false),
     accepted: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -26,7 +28,7 @@ class PaperDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :conference,
+    :committee,
     :reviews,
     :id,
     :title,
@@ -35,13 +37,15 @@ class PaperDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :conference,
+    :committee,
     :reviews,
     :id,
     :title,
     :author,
     :attachment,
+    :conference_id,
     :authorid,
+    :rating,
     :accepted,
     :created_at,
     :updated_at,
@@ -51,12 +55,14 @@ class PaperDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :conference,
+    :committee,
     :reviews,
     :title,
     :author,
     :attachment,
+    :conference_id,
     :authorid,
+    :rating,
     :accepted,
   ].freeze
 

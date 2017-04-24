@@ -11,6 +11,7 @@ class ReviewDashboard < Administrate::BaseDashboard
     paper: Field::BelongsTo,
     id: Field::Number,
     score: Field::Number,
+    confidence: Field::Number,
     comments: Field::Text,
     memberid: Field::Number,
     created_at: Field::DateTime,
@@ -26,7 +27,7 @@ class ReviewDashboard < Administrate::BaseDashboard
     :paper,
     :id,
     :score,
-    :comments,
+    :confidence,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -35,6 +36,7 @@ class ReviewDashboard < Administrate::BaseDashboard
     :paper,
     :id,
     :score,
+    :confidence,
     :comments,
     :memberid,
     :created_at,
@@ -47,6 +49,7 @@ class ReviewDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :paper,
     :score,
+    :confidence,
     :comments,
     :memberid,
   ].freeze

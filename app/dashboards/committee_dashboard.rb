@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class SuperAccountDashboard < Administrate::BaseDashboard
+class CommitteeDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,7 +8,10 @@ class SuperAccountDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    account: Field::HasOne,
+    conference: Field::BelongsTo,
+    user: Field::BelongsTo,
+    tracks: Field::HasMany,
+    papers: Field::HasMany,
     id: Field::Number,
     name: Field::String,
     created_at: Field::DateTime,
@@ -21,15 +24,19 @@ class SuperAccountDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :account,
-    :id,
-    :name,
+    :conference,
+    :user,
+    :tracks,
+    :papers,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :account,
+    :conference,
+    :user,
+    :tracks,
+    :papers,
     :id,
     :name,
     :created_at,
@@ -40,14 +47,17 @@ class SuperAccountDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :account,
+    :conference,
+    :user,
+    :tracks,
+    :papers,
     :name,
   ].freeze
 
-  # Overwrite this method to customize how sellers are displayed
+  # Overwrite this method to customize how committees are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(seller)
-  #   "Seller ##{seller.id}"
+  # def display_resource(committee)
+  #   "Committee ##{committee.id}"
   # end
 end
