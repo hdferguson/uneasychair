@@ -37,25 +37,45 @@ class TracksController < ApplicationController
     @track.capproved = false
     @track.uapproved = false
     @tracks = Track.all
-    respond_to do |format|
-      @state=true
-          @tracks.each do |track| 
-          if(track.conference == @track.conference && track.userid == @track.userid && track != @track)
+          
+      if @track.save
+        @state =true
+        if @track.conference != @track.committee.conference
+           @track.destroy
+           @state =false
+          redirect_to @track.conference, notice: "The committee and conference are not compatible. Let's just pretend this didn't happen."
+        else if @track.conference.chairid == current_account.id
+          @track.destroy
+          @state =false
+          redirect_to @track.conference, notice: "You are already the chair of this conference."
+        else if @track.conference.chairid == @track.committee.user.id
+          @track.destroy
+          @state =false
+          redirect_to @conference, notice: "You are already a PC chair of this committee."
+        else
+        @tracks.each do |track| 
+          if(track.committee == @track.committee && track.userid == @track.userid && track != @track)
             @track.destroy
             @state =false
-            format.html { redirect_to tracks_path, notice: 'Track not created. Only one track per user per conference.' }
-            format.json { render :show, status: :created, location: @track }
+            redirect_to tracks_path, notice: 'Track not created. Only one track per user per conference.' 
             break
           end
         end
-      if @track.save && @state
-        format.html { render :edit, notice: 'Track was successfully created.' }
-        format.json { render :show, status: :created, location: @track }
+        end
+        end
+        end
+        if(@state)
+          respond_to do |format|
+          format.html { render :edit, notice: 'Track was successfully created.' }
+          format.json { render :show, status: :created, location: @track }
+          end
+        end
       else
+        respond_to do |format|
         format.html { render :new }
         format.json { render json: @track.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # PATCH/PUT /tracks/1
@@ -77,6 +97,16 @@ class TracksController < ApplicationController
   # DELETE /tracks/1
   # DELETE /tracks/1.json
   def destroy
+    @track.committee.papers.each do |paper| 
+      if(paper.authorid == @track.userid)
+        paper.destroy
+      end
+      paper.reviews.each do |review|
+        if(review.memberid == @track.userid)
+          review.destroy
+        end
+      end
+   end
     @track.destroy
     respond_to do |format|
       format.html { redirect_to tracks_url, notice: 'Track was successfully destroyed.' }
@@ -95,4 +125,3 @@ class TracksController < ApplicationController
       params.require(:track).permit(:role, :conference_id, :committee_id, :userid, :capproved, :uapproved)
     end
 end
-

@@ -1,0 +1,44 @@
+<br />
+<br />
+<p id="notice"><%= notice %></p>
+<h1> Committee: <%= @committee.name %> of Conference: <%= @committee.conference.name %></h1>
+<% @state3 = false %>
+<% if(current_account != nil) %>
+  <% if (@committee.user.id == current_account.id) %>
+      <% @state3 =true %>
+  <% end %>
+<% end %>
+
+<table class = "table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <% if (@state1) %>
+                <th>Manage</th>
+            <% end %>
+        </tr>
+    </thead>
+    <tbody> 
+     <tr>
+         <% @user = User.find_by_id(@committee.conference.chairid)%>
+       <td><%= @user.name %></td>
+       <td>Conference Chair</td>
+     </tr>
+     <tr>
+       <td><%= @committee.user.name %></td>
+       <td>PC Chair</td>
+     </tr>
+  <% @committee.tracks.each do |track| %>
+     <tr>
+         <% @user = User.find_by_id(track.userid)%>
+       <td><%= @user.name %></td>
+       <td><%= track.role %></td>
+        <% if (@state3) %>
+            <td><%= "Accepted" %></td>
+        <% end %>
+     </tr>
+    <% end %>
+ </tbody>
+</tbody>
+<%= link_to 'Back', @committee.conference %>

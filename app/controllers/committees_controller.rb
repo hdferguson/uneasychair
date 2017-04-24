@@ -11,7 +11,15 @@ class CommitteesController < ApplicationController
   # GET /committees/1.json
   def show
   end
+  
+  def showid
+    @committees = Committee.all
+  end
 
+  def members
+    @committee = Committee.find_by_id(params[:id])
+  
+  end
   # GET /committees/new
   def new
     @conference = Conference.find_by_id(params[:conference_id])
@@ -26,16 +34,29 @@ class CommitteesController < ApplicationController
   # POST /committees.json
   def create
     @committee = Committee.new(committee_params)
-
-    respond_to do |format|
+    
+    
       if @committee.save
-        format.html { redirect_to @committee, notice: 'Committee was successfully created.' }
-        format.json { render :show, status: :created, location: @committee }
+        @conference = @committee.conference
+        if @conference.chairid != current_account.id
+          @committee.destroy
+          redirect_to @conference, notice: "You are not the chair of this conference."
+        else if @conference.chairid == @committee.user.id
+          @committee.destroy
+          redirect_to @conference, notice: "You can't make yourself a PC chair in your own conference."
+        else
+          respond_to do |format|
+          format.html { redirect_to @committee, notice: 'Committee was successfully created.' }
+          format.json { render :show, status: :created, location: @committee }
+          end
+        end
+        end
       else
+        respond_to do |format|
         format.html { render :new }
         format.json { render json: @committee.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # PATCH/PUT /committees/1
@@ -55,6 +76,12 @@ class CommitteesController < ApplicationController
   # DELETE /committees/1
   # DELETE /committees/1.json
   def destroy
+    @committee.papers.each do |paper| 
+        paper.destroy
+   end
+   @committee.tracks.each do |track| 
+        track.destroy
+   end
     @committee.destroy
     respond_to do |format|
       format.html { redirect_to committees_url, notice: 'Committee was successfully destroyed.' }

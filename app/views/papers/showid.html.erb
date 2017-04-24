@@ -28,7 +28,7 @@
         <% if paper.authorid == current_account.id %>
             <td><%= paper.title %></td>
             <td><%= paper.author %></td>
-            <td><%= link_to paper.conference.name, paper.conference %></td>
+            <td><%= link_to paper.committee.name, paper.committee %></td>
             <td><%= link_to "Download Paper", paper.attachment_url %></td>
             <td><%= paper.accepted %></td>
             <td><%= button_to "Delete",  paper, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure that you wish to delete #{paper.title}?"} %></td>

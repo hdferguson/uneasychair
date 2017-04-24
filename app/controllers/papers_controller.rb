@@ -26,20 +26,20 @@ class PapersController < ApplicationController
   end
   
   def rate
-    @paper = Paper.find_by_id(params[:id])
+    @papers = Paper.all
+    @papers.each do |paper|
     @rate = 0.0
     @top = 0.0
     @bottem = 0.0
-    if(@paper.reviews.count >= 3)
-      @paper.reviews.each do |review| 
+        paper.reviews.each do |review|
         @top += review.score * review.confidence
         @bottem += review.confidence
       end
       @rate = @top / @bottem
+      paper.update_attribute(:rating, paper.rating = @rate)
     end
-    respond_to do |format|
-      @paper.update_attribute(:rating, @paper.rating = @rate)
-      format.html { redirect_to @paper.conference }
+      respond_to do |format|
+      format.html { redirect_to papers_path }
     end
   end
   
@@ -53,12 +53,22 @@ class PapersController < ApplicationController
 
   def create
   @paper = Paper.new(paper_params)
-  @paper.conference = @paper.committee.conference
   @paper.authorid = current_account.id
   @paper.accepted = false
   @paper.rating = 0.0
+  @state = false
     if @paper.save
-      redirect_to @paper.conference, notice: "The paper #{@paper.title} has been uploaded."
+      @paper.committee.tracks.each do |track| 
+      if( track.userid == current_account.id && track.role == "Author" )
+        @state = true
+      end
+      end
+      if(@state)
+        redirect_to @paper.committee.conference, notice: "The paper #{@paper.title} has been uploaded."
+      else
+        @paper.destroy
+        redirect_to @paper.committee.conference, notice: "You are not an author of that committee. Paper not created."
+      end
     else
       render "new"
     end
@@ -77,6 +87,6 @@ class PapersController < ApplicationController
   
   private
   def paper_params
-    params.require(:paper).permit(:title, :author, :attachment, :conference_id, :authorid, :accepted)
+    params.require(:paper).permit(:title, :author, :attachment, :committee_id, :authorid, :accepted)
   end
 end

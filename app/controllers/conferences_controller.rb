@@ -76,9 +76,9 @@ class ConferencesController < ApplicationController
   # DELETE /conferences/1.json
   def destroy
     @conference = Conference.find(params[:id])
-   @Conference.papers.each do |paper| 
-      if(paper.conference == @Conference)
-        paper.destroy
+   @Conference.committees.each do |committee| 
+      if(committee.conference == @Conference)
+        committee.destroy
       end
    end
     @conference.destroy

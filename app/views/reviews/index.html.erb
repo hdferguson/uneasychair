@@ -3,7 +3,7 @@
 <br />
 <br />
 <h1>Reviews</h1>
-
+<% if current_account.accountable_type == "SuperAccount" %>
 
 <br />
 <table class="table table-bordered table-striped">
@@ -33,3 +33,6 @@
 <br>
 
 <%= link_to 'New Review', new_review_path %>
+<% else %>
+    <h3>Admins only.</h3>
+<% end %>

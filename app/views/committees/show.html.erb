@@ -1,18 +1,78 @@
+<br />
+<br />
 <p id="notice"><%= notice %></p>
+<h1> Committee: <%= @committee.name %></h1>
+<% @state3 = false %>
+<% if(current_account != nil) %>
+  <% if (@committee.conference.chairid == current_account.id) %>
+      <% @state3 =true %>
+  <% end %>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @committee.name %>
-</p>
-
-<p>
-  <strong>PC Chair:</strong>
-  <%= @committee.user.name %>
-</p>
-<p>
-  <strong>Conference:</strong>
-  <%= @committee.conference.name %>
-</p>
-
-<%= link_to 'Edit', edit_committee_path(@committee) %> |
+            <% @state1 =false %>
+            <% @state2 =false %>
+            <% @state4 =false %>
+            <% if(current_account != nil) %>
+                <% if (@committee.user.id == current_account.id) %>
+                    <% @state1 =true %>
+                <% end %>
+            <% if(@state1 == false) %>
+            <% @committee.tracks.each do |track| %>
+                <% if (track.userid == current_account.id && track.role == "PC Member") %>
+                    <% @state2 =true %>
+                    <% break %>
+                <% end %>
+                <% if (track.userid == current_account.id && track.role == "Author") %>
+                    <% @state4 =true %>
+                    <% break %>
+                <% end %>
+            <% end %>
+            <% end %>
+<% if (@state4)%>
+                <%= link_to 'New Paper ', new_committee_paper_path(@committee) %>
+<% end %>
+<table class = "table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Paper Title</th>
+            <th>Author</th>
+            <th>Download Link</th>
+            <th>Reviews</th>
+            <th>Status</th>
+            <% if (@state1) %>
+                <th>Manage Paper</th>
+            <% end %>
+            <% if (@state2) %>
+                <th>Review Link</th>
+            <% end %>
+            
+        </tr>
+    </thead>
+    <tbody> 
+  <% @committee.papers.each do |paper| %>
+     <tr>
+       <td><%= paper.title %></td>
+       <td><%= paper.author %></td>
+        <td><%= link_to "Download Paper", paper.attachment_url %></td>
+        <td><%= link_to 'Reviews', paper %></td>
+        <% if (paper.rating >= 5.5 and paper.accepted) %>
+            <td><%= "Accepted with rating of " + "%05.2f" % paper.rating %></td>
+        <% else %>
+            <td><%= "Not accepted with rating of " + "%05.2f" % paper.rating %></td>
+        <% end %>
+        <% if (@state1 && paper.accepted == false) %>
+        <td><%= button_to "Accept",  accept_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to accept #{paper.title}?"} %></td>
+        <% else if @state1%>
+        <td><%= button_to "Decline",  decline_paper_path(id = paper.id), class: "btn btn-danger", data: { confirm: "Are you sure that you wish to decline #{paper.title}?"} %></td>
+        <% end %>
+        <% end %>
+        <% if (@state2) %>
+        <td><%= link_to "Review paper", new_paper_review_path(paper) %></td>
+        <% end %>
+        
+     </tr>
+    <% end %>
+ </tbody>
+</tbody>
+<% end %>
 <%= link_to 'Back', @committee.conference %>
