@@ -10,7 +10,7 @@ class ConferencesController < ApplicationController
     respond_to do |format|
       format.html {
           if (params[:spa] && params[:spa] == "true")
-              redirect_to hello_world_url
+              render 'index_spa'
           # the else case below is by default
           # else
           #    render 'index'

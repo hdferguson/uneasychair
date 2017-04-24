@@ -245,6 +245,20 @@ th {
   h3 {
     page-break-after: avoid;
   }
+
+  td {
+    min-width: 100px;
+
+    p{
+        margin-left: 0px;
+    }
+
+    img {
+        width: 80px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+ }
   .navbar {
     display: none;
   }
