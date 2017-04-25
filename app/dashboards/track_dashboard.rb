@@ -9,6 +9,7 @@ class TrackDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     conference: Field::BelongsTo,
+    committee: Field::BelongsTo,
     id: Field::Number,
     role: Field::String,
     userid: Field::Number,
@@ -25,15 +26,16 @@ class TrackDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :conference,
+    :committee,
     :id,
     :role,
-    :userid,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :conference,
+    :committee,
     :id,
     :role,
     :userid,
@@ -48,6 +50,7 @@ class TrackDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :conference,
+    :committee,
     :role,
     :userid,
     :capproved,
