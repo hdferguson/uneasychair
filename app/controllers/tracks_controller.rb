@@ -48,10 +48,10 @@ class TracksController < ApplicationController
           @track.destroy
           @state =false
           redirect_to @track.conference, notice: "You are already the chair of this conference."
-        else if @track.conference.chairid == @track.committee.user.id
+        else if @track.committee.user.id == current_account.id
           @track.destroy
           @state =false
-          redirect_to @conference, notice: "You are already a PC chair of this committee."
+          redirect_to @track.conference, notice: "You are already a PC chair of this committee."
         else
         @tracks.each do |track| 
           if(track.committee == @track.committee && track.userid == @track.userid && track != @track)
