@@ -66,7 +66,7 @@ class TracksController < ApplicationController
         end
         if(@state)
           respond_to do |format|
-          format.html { render :edit, notice: 'Track was successfully created.' }
+          format.html { render :index, notice: 'Track was successfully created.' }
           format.json { render :show, status: :created, location: @track }
           end
         end
@@ -100,11 +100,12 @@ class TracksController < ApplicationController
     @track.committee.papers.each do |paper| 
       if(paper.authorid == @track.userid)
         paper.destroy
-      end
+      else
       paper.reviews.each do |review|
         if(review.memberid == @track.userid)
           review.destroy
         end
+      end
       end
    end
     @track.destroy

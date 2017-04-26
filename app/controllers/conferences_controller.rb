@@ -16,7 +16,7 @@ class ConferencesController < ApplicationController
           #    render 'index'
           end
       }
-      format.json {render json: @products}
+      format.json {render json: @conferences}
     end
   end
 
