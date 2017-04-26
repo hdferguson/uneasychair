@@ -28,7 +28,6 @@
         <% end %>
         <td><%= track.userid %></td>
         <td><%= link_to 'Show', track %></td>
-        <td><%= link_to 'Change Committee', edit_track_path(track) %></td>
         <td><%= link_to 'Destroy', track, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -38,4 +37,3 @@
 
 <br>
 
-<%= link_to 'New Track', new_track_path %>

@@ -13,7 +13,7 @@ class PapersController < ApplicationController
     @paper = Paper.find_by_id(params[:id])
     respond_to do |format|
       @paper.update_attribute(:accepted, @paper.accepted = true)
-      format.html { redirect_to @paper.conference }
+      format.html { redirect_to @paper.committee }
     end
   end
   
@@ -21,7 +21,7 @@ class PapersController < ApplicationController
     @paper = Paper.find_by_id(params[:id])
     respond_to do |format|
       @paper.update_attribute(:accepted, @paper.accepted = false)
-      format.html { redirect_to @paper.conference }
+      format.html { redirect_to @paper.committee }
     end
   end
   
