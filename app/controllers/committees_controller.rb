@@ -84,7 +84,7 @@ class CommitteesController < ApplicationController
    end
     @committee.destroy
     respond_to do |format|
-      format.html { redirect_to committees_url, notice: 'Committee was successfully destroyed.' }
+      format.html { redirect_to conferences_path, notice: 'Committee was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
