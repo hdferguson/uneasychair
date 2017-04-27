@@ -3,6 +3,9 @@
 <br />
 <h1> Title: <%= @paper.title %></h1>
 <h1> Author: <%= @paper.author %></h1>
+<div class="col-lg-6">
+    <iframe src=<%= @paper.attachment_url %> width="600" height="600" style="overflow:hidden;border: none;"> </iframe>
+  </div>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
