@@ -17,7 +17,7 @@ class TracksController < ApplicationController
   # GET /tracks/1.json
   def show
   end
-
+  
   # GET /tracks/new
   def new
     @conference = Conference.find_by_id(params[:conference_id])
@@ -28,7 +28,7 @@ class TracksController < ApplicationController
   # GET /tracks/1/edit
   def edit
   end
-
+  
   # POST /tracks
   # POST /tracks.json
   def create

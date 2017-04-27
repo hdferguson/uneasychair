@@ -22,8 +22,13 @@
     <tbody> 
      <tr>
          <% @user = User.find_by_id(@committee.conference.chairid)%>
-       <td><%= @user.name %></td>
+         <% if @user != nil %>
+           <td><%= @user.name %></td>
+         <% else %>
+           <td><%= "None" %></td>
+         <% end %>
        <td>Conference Chair</td>
+       
      </tr>
      <tr>
        <td><%= @committee.user.name %></td>
@@ -32,10 +37,12 @@
   <% @committee.tracks.each do |track| %>
      <tr>
          <% @user = User.find_by_id(track.userid)%>
+        <% if @user != nil %>
        <td><%= @user.name %></td>
        <td><%= track.role %></td>
         <% if (@state3) %>
             <td><%= "Accepted" %></td>
+        <% end %>
         <% end %>
      </tr>
     <% end %>
