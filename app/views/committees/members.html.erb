@@ -31,7 +31,12 @@
        
      </tr>
      <tr>
-       <td><%= @committee.user.name %></td>
+         <% @user = @committee.user %>
+         <% if @user != nil %>
+           <td><%= @user.name %></td>
+         <% else %>
+           <td><%= "None" %></td>
+         <% end %>
        <td>PC Chair</td>
      </tr>
   <% @committee.tracks.each do |track| %>
