@@ -1,4 +1,4 @@
-<%= form_for([conference,committee]) do |f| %>
+<%= form_for(committee) do |f| %>
   <% if committee.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(committee.errors.count, "error") %> prohibited this committee from being saved:</h2>
@@ -20,13 +20,13 @@
    <div class="field">
     <%= f.label :user_id %>
     <%= " that is PC Chair." %>
-       <%= @committee.user.name %>
+       <%= committee.user.name %>
   </div>
   
 
   <div class="field">
     <%= f.label :conference_id %>
-    <%= @committee.conference %>
+    <%= committee.conference.name %>
   </div>
   
  

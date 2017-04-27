@@ -1,7 +1,7 @@
 <h1>Editing Committee</h1>
 <% @state = true%>
 <% if @committee.conference.chairid == current_account.id %>
-    <%= render 'form2', committee: @committee, conference: @committee.conference %>
+    <%= render 'form2', committee: @committee %>
     <% @state = false %>
     <%= link_to 'Show', @committee %>
     <%= link_to 'Back', committees_path %>
