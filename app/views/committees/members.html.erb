@@ -21,7 +21,11 @@
     </thead>
     <tbody> 
      <tr>
-         <% @user = User.find_by_id(@committee.conference.chairid)%>
+         <% if @committee.conference.chairid > 6 %>
+           <% @user = User.find_by_id(@committee.conference.chairid - 1) %>
+         <% else %>
+           <% @user = User.find_by_id(@committee.conference.chairid) %>
+         <% end %>
          <% if @user != nil %>
            <td><%= @user.name %></td>
          <% else %>
@@ -41,7 +45,11 @@
      </tr>
   <% @committee.tracks.each do |track| %>
      <tr>
-         <% @user = User.find_by_id(track.userid)%>
+         <% if track.userid > 6 %>
+           <% @user = User.find_by_id(track.userid - 1)%>
+         <% else %>
+           <% @user = User.find_by_id(track.userid)%>
+         <% end %>
         <% if @user != nil %>
        <td><%= @user.name %></td>
        <td><%= track.role %></td>
